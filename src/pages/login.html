@@ -6,7 +6,8 @@
         <img src="/src/assets/logo/logo.png" alt="" srcset="" class="w-36 mx-auto">
         <p class="font-bold text-4xl text-center my-8">Welcome Back!</p>
         <form action="" class="flex flex-col gap-2">
-            <input type="email" name="" id="" placeholder="Email" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
+            <p id="confirmLogin" class="text-sm text-red-600 font-light"></p>
+            <input type="email" name="" id="email" placeholder="Email" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <input type="password" name="" id="password" placeholder="Password" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <div class="my-1 flex gap-2 items-center">
                 <input type="checkbox" name="showPassword" id="showPassword">
@@ -21,12 +22,36 @@
 <script src="../components/head.js"></script>
 <script>
     head('Login');
+    const form = document.querySelector('form');
+    const confirmLogin = document.getElementById('confirmLogin');
+    const email = document.getElementById('email');
     const showPassword = document.getElementById('showPassword');
     const password = document.getElementById('password');
 
+    email.addEventListener('input', ()=>{
+        email.style.borderColor = email.value == ''? 'red':'#284961';
+    });
+    password.addEventListener('input', ()=>{
+        password.style.borderColor = password.value == ''? 'red':'#284961';
+    });
     showPassword.addEventListener('change', ()=>{
         password.type = showPassword.checked ? 'text' : 'password';
     });
+
+    form.onsubmit = (e)=>{
+        e.preventDefault();
+
+        if(!email.value == '' && !password.value == '' ){
+            if(localStorage.getItem('email') == email.value && localStorage.getItem('password') == password.value){
+                window.location.href = '/index.html';
+            }else {
+                confirmLogin.innerHTML = 'Email and password do not match.';
+            }
+        } else {
+            email.style.borderColor = email.value == ''? 'red':'#284961';
+            password.style.borderColor = password.value == ''? 'red':'#284961';
+        }
+    }
 
 </script>
 </html>
