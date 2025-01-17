@@ -28,6 +28,10 @@ coffeeProducts.forEach( (coffee)=>{
 
     
     coffeeProdContainer.appendChild(div);
+
+    div.addEventListener('click', ()=>{
+        window.location.href = `/src/pages/viewProduct.html?id=${coffee.id}`
+    });
 });
 
 cookieProducts.forEach( (cookie)=>{
@@ -51,4 +55,8 @@ cookieProducts.forEach( (cookie)=>{
 
     
     cookieProdContainer.appendChild(div);
+
+    div.addEventListener('click', ()=>{
+        window.location.href = `/src/pages/viewProduct.html?id=${cookie.id}`
+    });
 });
