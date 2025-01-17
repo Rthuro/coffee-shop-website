@@ -42,11 +42,26 @@
         e.preventDefault();
 
         if(!email.value == '' && !password.value == '' ){
-            if(localStorage.getItem('email') == email.value && localStorage.getItem('password') == password.value){
-                window.location.href = '/index.html';
-            }else {
-                confirmLogin.innerHTML = 'Email and password do not match.';
+            const users = JSON.parse(localStorage.getItem('users'));
+
+            let noUserFound = true;
+            if(users){
+                for(let i =0; i < users.length; i++){
+                    if(users[i].email == email.value && users[i].password == password.value){
+                        localStorage.setItem('currentUserEmail',email.value);
+                        localStorage.setItem('currentUserPass',password.value);
+                        window.location.href = '/index.html';
+                        break;
+                    }else{
+                        noUserFound = false;
+                    }
+                }
             }
+            
+            if(noUserFound){
+                confirmLogin.innerHTML = 'User not found.';
+            }
+
         } else {
             email.style.borderColor = email.value == ''? 'red':'#284961';
             password.style.borderColor = password.value == ''? 'red':'#284961';
