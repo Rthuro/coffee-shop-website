@@ -1,4 +1,5 @@
 
+
 function header(page){
     const header = document.querySelector('header');
 
@@ -19,7 +20,11 @@ function header(page){
     const div = document.createElement('div');
     div.classList.add('text-customCream','w-[200px]', 'flex', 'justify-center', 'item-center');
 
-    if(localStorage.getItem('email') == null){
+    div.innerHTML = '';
+    const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+    if(currentUserEmail == 'null'){
+       
         const a = document.createElement('a');
         a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'py-2', 'px-4','rounded-sm','text-sm');
         a.innerHTML = 'Login';
@@ -45,7 +50,6 @@ function header(page){
         
     }
    
-
     header.appendChild(div);
 
 }
