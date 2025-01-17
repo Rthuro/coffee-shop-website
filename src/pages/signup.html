@@ -6,18 +6,19 @@
         <img src="/src/assets/logo/logo.png" alt="" srcset="" class="w-36 mx-auto">
         <p class="font-bold text-4xl text-center my-8">Sign up</p>
         <form action="" class="flex flex-col gap-2">
-            <input type="email" name="" id="" placeholder="Email" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
+            <input type="email" name="" id="email" placeholder="Email" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <input type="password" name="" id="password" placeholder="Password" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <div class="my-1 flex gap-2 items-center">
                 <input type="checkbox" name="showPassword" id="showPassword">
                 <label for="showPassword" class="text-sm">Show Password</label>
             </div>
             <input type="password" name="" id="confirmPassword" placeholder="Confirm Password" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
+            <p id="confirmPassErr" class="text-sm text-red-600 font-light"></p>
             <div class="my-1 flex gap-2 items-center">
                 <input type="checkbox" name="showConfirmPassword" id="showConfirmPassword">
                 <label for="showConfirmPassword" class="text-sm">Show Password</label>
             </div>
-           <input type="submit" name="" value="Login" id="" class=" w-[300px] rounded-sm bg-customBlue text-customCream  py-2 px-2 ">
+           <input type="submit" name="" value="Login" id="login" class=" w-[300px] rounded-sm bg-customBlue text-customCream  py-2 px-2 ">
            <p class=" font-light text-sm self-center mt-2">Already have an account? <a href="./login.html" class="underline">Login</a> </p>
         </form>
     </main>
@@ -26,10 +27,13 @@
 <script src="../components/head.js"></script>
 <script>
     head('Login');
+    const form = document.querySelector('form');
+    const email = document.getElementById('email');
     const showPassword = document.getElementById('showPassword');
     const password = document.getElementById('password');
     const showConfirmPassword = document.getElementById('showConfirmPassword');
     const confirmPassword = document.getElementById('confirmPassword');
+    const confirmPassErr = document.getElementById('confirmPassErr');
 
     showPassword.addEventListener('change', ()=>{
         password.type = showPassword.checked ? 'text' : 'password';
@@ -38,6 +42,36 @@
     showConfirmPassword.addEventListener('change', ()=>{
         confirmPassword.type = showConfirmPassword.checked ? 'text' : 'password';
     });
+
+    email.addEventListener('input', ()=>{
+        email.style.borderColor = email.value == ''? 'red':'#284961';
+    });
+    password.addEventListener('input', ()=>{
+        password.style.borderColor = password.value == ''? 'red':'#284961';
+    });
+    confirmPassword.addEventListener('input', ()=>{
+        confirmPassword.style.borderColor = confirmPassword.value == ''? 'red':'#284961';
+    });
+
+    form.onsubmit = (e)=>{
+        e.preventDefault();
+
+        if(!email.value == '' && !password.value == '' && !confirmPassword == ''){
+            if(password.value == confirmPassword.value){
+                localStorage.setItem('email', email.value);
+                localStorage.setItem('password', password.value );
+                window.location.href = './login.html';
+            } else {
+                confirmPassErr.innerHTML = 'Password and confirm password do not match.';
+            } 
+        } else {
+            email.style.borderColor = email.value == ''? 'red':'#284961';
+            password.style.borderColor = password.value == ''? 'red':'#284961';
+            confirmPassword.style.borderColor = confirmPassword.value == ''? 'red':'#284961';
+        }
+    }
+
+   
 
 </script>
 </html>
