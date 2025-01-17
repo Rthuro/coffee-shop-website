@@ -19,11 +19,32 @@ function header(page){
     const div = document.createElement('div');
     div.classList.add('text-customCream','w-[200px]', 'flex', 'justify-center', 'item-center');
 
-    const a = document.createElement('a');
-    a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'py-2', 'px-4','rounded-sm','text-sm');
-    a.href = '/src/pages/login.html';
-    a.innerHTML = 'Login';
-    div.appendChild(a);
+    if(localStorage.getItem('email') == null){
+        const a = document.createElement('a');
+        a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'py-2', 'px-4','rounded-sm','text-sm');
+        a.innerHTML = 'Login';
+        a.href = "/src/pages/login.html";
+    
+        div.appendChild(a);
+    }else{
+        div.classList.add('gap-2');
+        const a1 = document.createElement('a');
+        a1.href = "/src/pages/cart.html";
+            const i1 = document.createElement('i');
+            i1.classList.add('size-5');
+            i1.setAttribute('data-lucide', 'shopping-bag');
+            a1.appendChild(i1);
+        div.appendChild(a1);
+        const a2 = document.createElement('a');
+        a2.href = "/src/pages/account.html";
+            const i2 = document.createElement('i');
+            i2.classList.add('size-5');
+            i2.setAttribute('data-lucide', 'user-round');
+            a2.appendChild(i2);
+        div.appendChild(a2);
+        
+    }
+   
 
     header.appendChild(div);
 
