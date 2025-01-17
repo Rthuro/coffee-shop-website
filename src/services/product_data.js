@@ -214,7 +214,7 @@ const coffeeProducts = [
   
   const cookieProducts = [
     {
-      id: 1,
+      id: 7,
       name: "Chocolate Chunk Cookies",
       description: "Rich and soft cookies filled with large chunks of chocolate for an indulgent treat.",
       price: 49,
@@ -249,7 +249,7 @@ const coffeeProducts = [
       available: true,
     },
     {
-      id: 2,
+      id: 8,
       name: "Chocolate Cookies",
       description: "Classic soft and chewy chocolate cookies with a rich chocolate flavor.",
       price: 49,
@@ -285,7 +285,7 @@ const coffeeProducts = [
       available: true,
     },
     {
-      id: 3,
+      id: 9,
       name: "Chocolate M&M Cookies",
       description: "Chewy cookies loaded with colorful M&M candies and plenty of chocolate.",
       price: 49,
