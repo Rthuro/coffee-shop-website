@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
+    </header>
+    <main class=" maxWidth mx-auto my-8 h-[60vh] flex items-center">
+        <img src="" alt="" id="productImg" class="w-[50%] ">
+        <div class="flex flex-col gap-3 w-[50%]">
+            <p id="productName" class="text-5xl font-bold uppercase"></p>
+            <p id="productPrice" class="text-2xl"></p>
+           <form action="" class="flex flex-col gap-3">
+            
+            <div class="flex items-center">
+                <label for="quantity" class="mr-3">Quantity:</label>
+                <button type="button" id="minusBtn" class=" px-2 border border-gray-200 py-[6px]">
+                    <i data-lucide="minus" stroke="#6b7280" class="size-5" ></i>
+                </button>
+                <input type="number" name="" id="quantity" value="1" min="1" class="w-16 py-1 px-2  bg-transparent border focus:outline-none text-center">
+                <button type="button" id="plusBtn" class=" px-2 border border-gray-200 py-[6px]">
+                    <i data-lucide="plus" stroke="#6b7280" class="size-5" ></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-2 ">
+                <label for="size">Size:</label>
+                <select name="size" id="size" class="rounded-sm py-2 px-2 w-[200px] bg-customCream border-gray-200 border focus:outline-none text-sm">
+
+                </select>
+            </div>
+                <input type="submit" value="Place Order" class="bg-customBlue text-customCream py-2 rounded-sm w-1/2">
+           </form>
+        </div>
+    </main>
+    <section class="maxWidth mx-auto flex flex-col gap-2 h-[50vh]">
+        <p class="text-2xl font-medium border-b py-2">Description</p>
+        <p id="productDescrip"></p>
+    </section>
+    <footer class="h-64 mt-56 flex items-start justify-around maxWidth mx-auto">
+    </footer>
+</body>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script type="module">
+    import  { head, header, footer  }  from "/src/components/layout.js";
+    import { allProd } from "/src/services/product_data.js";
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const productId = Number(urlParams.get('id'));
+
+    head("");
+    header("");
+    footer();
+    lucide.createIcons();
+
+
+    document.addEventListener('DOMContentLoaded', ()=>{ 
+        
+        if(productId){
+            const form = document.querySelector('form');
+            const productImg = document.getElementById('productImg');
+            const productName = document.getElementById('productName');
+            const productDescrip = document.getElementById('productDescrip');
+            const productPrice = document.getElementById('productPrice');
+            const minusBtn = document.getElementById('minusBtn');
+            const quantity = document.getElementById('quantity');
+            const plusBtn = document.getElementById('plusBtn');
+            const sizeDropDown = document.getElementById('size');
+            
+            const getProdInfo = allProd.find(prod => prod.id === productId);
+            productImg.src = `/src/assets/product_image/${getProdInfo.imageUrl}`;
+            productName.innerText = getProdInfo.name;
+            document.title +=  ` ${getProdInfo.name}`;
+            productDescrip.innerText = getProdInfo.description;
+            productPrice.innerText = `PHP ${getProdInfo.price.toFixed(2)}`;
+
+            getProdInfo.sizeOptions.forEach(size =>{
+                const option = document.createElement('option');
+                option.id =  size.size;
+                option.innerText = size.size;
+                sizeDropDown.appendChild(option);
+            });
+
+            sizeDropDown.addEventListener('change', ()=>{
+                const sizePrice =  getProdInfo.sizeOptions.find( size => size.size == sizeDropDown.value);
+                productPrice.innerText = `PHP ${sizePrice.price.toFixed(2)}`;
+            });
+            
+            minusBtn.addEventListener('click', ()=>{   
+                if(quantity.value > 0){
+                    --quantity.value;
+                
+                } else {
+                    quantity.value = 0
+                }
+            });
+
+            quantity.addEventListener('input', () => {
+                if (quantity.value <= 0) {
+                    quantity.value = 0; 
+                }
+            });
+
+            plusBtn.addEventListener('click', ()=>{
+                ++quantity.value;
+            });
+
+            form.onsubmit = (e)=>{
+                e.preventDefault();
+                const email = localStorage.getItem('currentUserEmail');
+                const userQuantity = quantity.value;
+
+                const userCart = { userEmail: email, productId: productId,quantity:userQuantity, productSize: sizeDropDown.value};
+
+                const cart = JSON.parse(localStorage.getItem('userCart')) || [];
+
+                const existingProd = cart.find(cartItem =>
+                    cartItem.userEmail === email && Number(cartItem.productId) ===productId
+                );
+
+                if(existingProd){
+                    existingProd.quantity =  parseInt(existingProd.quantity) + parseInt(quantity.value);
+
+                } else {
+                    cart.push(userCart);
+                }
+
+                localStorage.setItem('userCart', JSON.stringify(cart));
+                window.location.href = '/src/pages/cart.html';
+               
+            }
+        } else {
+            window.location.href = "/index.html";
+        }
+    });
+
+
+</script>
+</html>
