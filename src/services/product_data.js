@@ -1,5 +1,5 @@
 
-const coffeeProducts = [
+export const coffeeProducts = [
     {
       id: 1,
       name: "Cappuccino",
@@ -212,7 +212,7 @@ const coffeeProducts = [
     }
   ];
   
-  const cookieProducts = [
+export const cookieProducts = [
     {
       id: 7,
       name: "Chocolate Chunk Cookies",
@@ -322,5 +322,5 @@ const coffeeProducts = [
     }
   ];
 
-  const allProd = [...coffeeProducts,...cookieProducts];
+export const allProd = [...coffeeProducts,...cookieProducts];
   
