@@ -16,11 +16,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                
-            </tr>
         </tbody>
     </table>
+
     <div class="flex flex-col items-end maxWidth mx-auto">
         <p id="total"></p>
         <a href="" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</a>
@@ -29,13 +27,87 @@
     </footer>
 </body>
 <script src="https://unpkg.com/lucide@latest"></script>
-<script src="../components/head.js"></script>
-<script src="../components/header.js"></script>
-<script src="../components/footer.js"></script>
+<script type="module">
+    import { head, header, footer } from "/src/components/layout.js";
+    import { allProd } from "/src/services/product_data.js";
 
-<script>
-    head('Cart');
-    header('Cart');
-    lucide.createIcons();
+    const tbody = document.querySelector('table tbody');
+
+    function checkCart(cart){
+
+        if(cart && cart.length > 0){
+            const emptyCartMsg = document.getElementById('emptyCartMsg');
+            if(emptyCartMsg){
+                tbody.remove(emptyCartMsg);
+            }
+
+            cart.forEach(items => {
+               const prod = allProd.find(prod => items.productId == prod.id);
+
+               if(prod){
+                    createCartItem(prod);
+               }
+            });
+           
+        }else{
+            const tr = document.createElement('tr');
+            tr.id = 'emptyCartMsg';
+
+            const td = document.createElement('td');
+            td.colSpan = 4;
+        
+            const i = document.createElement('i');
+            i.setAttribute('data-lucide', 'shopping-basket');
+            i.setAttribute('stroke', '#6b7280' );
+            i.classList.add('mx-auto', 'size-10','mt-8');
+            td.appendChild(i);
+
+            const msg = document.createElement('p');
+            msg.innerHTML = "Empty cart";
+            msg.classList.add('text-gray-500', 'text-xl', 'text-center');
+            td.appendChild(msg);
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+        }
+        lucide.createIcons();
+    }
+
+    function createCartItem(userCart){
+        const tr = document.createElement('tr');
+            
+        const product = document.createElement('td');
+        product.classList.add('flex', 'items-center');
+        const productImg = document.createElement('img');
+        productImg.src = `/src/assets/product_image/${userCart.imageUrl}`;
+        productImg.classList.add('rounded-sm', 'h-[100px]');
+        product.appendChild(productImg);
+        const productName = document.createElement('p');
+        productName.innerText = userCart.name;
+        product.appendChild(productName);
+        tr.appendChild(product);
+
+        const size = document.createElement('p');
+    
+        tbody.appendChild(tr);
+    }
+
+    if(localStorage.getItem('currentUserEmail') == "null"){
+        window.location.href = "/index.html";
+    } else {
+        head('Cart');
+        header('Cart');
+        footer();
+        
+        const cart = JSON.parse(localStorage.getItem('userCart')) || [];
+        const userCart = ()=>{
+            return cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail'));
+        }
+        
+        checkCart(userCart());
+
+        
+    }
 </script>
 </html>

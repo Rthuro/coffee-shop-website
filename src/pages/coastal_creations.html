@@ -21,13 +21,13 @@
     </footer>
 </body>
 <script src="https://unpkg.com/lucide@latest"></script>
-<script src="../components/head.js"></script>
-<script src="../components/header.js"></script>
-<script src="../components/footer.js"></script>
-<script src="../services/product_data.js"></script>
-<script>
+<script type="module">
+    import  { head, header, footer  }  from "/src/components/layout.js";
+    import  { allProd }  from "/src/services/product_data.js";
+
     head('Coastal Creations');
     header('Coastal Creations');
+    footer();
     lucide.createIcons();
     const allProdContainer = document.getElementById('allProdContainer');
     const main = document.querySelector('main');
@@ -63,8 +63,14 @@
 
                 allProdContainer.appendChild(div);
 
+                div.addEventListener('click', ()=>{
+                window.location.href = `/src/pages/view_product.html?id=${prod.id}`
+                });
+
                 result++;
             } 
+
+            
         });
 
 

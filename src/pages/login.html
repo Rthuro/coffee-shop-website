@@ -6,7 +6,7 @@
         <img src="/src/assets/logo/logo.png" alt="" srcset="" class="w-36 mx-auto">
         <p class="font-bold text-4xl text-center my-8">Welcome Back!</p>
         <form action="" class="flex flex-col gap-2">
-            <p id="confirmLogin" class="text-sm text-red-600 font-light"></p>
+            <p id="confirmLogin" class="text-sm text-red-600 font-light text-center"></p>
             <input type="email" name="" id="email" placeholder="Email" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <input type="password" name="" id="password" placeholder="Password" class=" w-[300px] rounded-sm bg-customCream border border-customBlue py-2 px-2 focus:bg-customCream focus:outline-none">
             <div class="my-1 flex gap-2 items-center">
@@ -19,8 +19,8 @@
     </main>
 
 </body>
-<script src="../components/head.js"></script>
-<script>
+<script type="module">
+    import  { head  }  from "/src/components/layout.js";
     head('Login');
     const form = document.querySelector('form');
     const confirmLogin = document.getElementById('confirmLogin');
@@ -44,24 +44,26 @@
         if(!email.value == '' && !password.value == '' ){
             const users = JSON.parse(localStorage.getItem('users'));
 
-            let noUserFound = true;
+            let noUserFound = false;
             if(users){
                 for(let i =0; i < users.length; i++){
                     if(users[i].email == email.value && users[i].password == password.value){
                         localStorage.setItem('currentUserEmail',email.value);
                         localStorage.setItem('currentUserPass',password.value);
                         window.location.href = '/index.html';
+                        noUserFound = false;
                         break;
                     }else{
-                        noUserFound = false;
+                        noUserFound = true;
                     }
                 }
-            }
-            
-            if(noUserFound){
-                confirmLogin.innerHTML = 'User not found.';
+               
             }
 
+            if(noUserFound){
+                   confirmLogin.innerHTML = 'User not found.';
+                }
+        
         } else {
             email.style.borderColor = email.value == ''? 'red':'#284961';
             password.style.borderColor = password.value == ''? 'red':'#284961';
