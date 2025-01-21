@@ -1,6 +1,10 @@
 
+import  { head, header, footer  }  from "/src/components/layout.js";
+import  { coffeeProducts , cookieProducts }  from "/src/services/product_data.js";
+
 head('Ocean Breeze');
 header('Ocean Breeze');
+footer();
 lucide.createIcons();
 
 
@@ -30,7 +34,7 @@ coffeeProducts.forEach( (coffee)=>{
     coffeeProdContainer.appendChild(div);
 
     div.addEventListener('click', ()=>{
-        window.location.href = `/src/pages/viewProduct.html?id=${coffee.id}`
+        window.location.href = `/src/pages/view_product.html?id=${coffee.id}`
     });
 });
 
@@ -57,6 +61,6 @@ cookieProducts.forEach( (cookie)=>{
     cookieProdContainer.appendChild(div);
 
     div.addEventListener('click', ()=>{
-        window.location.href = `/src/pages/viewProduct.html?id=${cookie.id}`
+        window.location.href = `/src/pages/view_product.html?id=${cookie.id}`
     });
 });
