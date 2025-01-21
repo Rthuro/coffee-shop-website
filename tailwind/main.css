@@ -34,3 +34,8 @@ body{
 nav a{
     @apply hover:underline;
 }
+
+input[type='submit']{
+    cursor: pointer;
+}
+
