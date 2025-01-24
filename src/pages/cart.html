@@ -7,18 +7,19 @@
     </header>
     <p class="font-bold text-6xl text-center my-8">CART</p>
     <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh]">
-        <thead>
+        <thead >
             <tr>
                 <th class="w-[200px] font-medium">Product</th>
                 <th class="w-[200px] font-medium">Size</th>
                 <th class="w-[200px] font-medium">Quantity</th>
                 <th class="w-[200px] font-medium">Amount</th>
+                <th class="w-[100px] font-medium">Actions</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-
+    <div id="delModalContainer" class="hidden"></div>
     <div class="flex flex-col items-end maxWidth mx-auto">
         <p id="total"></p>
         <a href="" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</a>
@@ -45,7 +46,7 @@
                const prod = allProd.find(prod => items.productId == prod.id);
 
                if(prod){
-                    createCartItem(prod);
+                    createCartItem(prod, items);
                }
             });
            
@@ -73,41 +74,148 @@
         }
         lucide.createIcons();
     }
+    function updateAmount(quantity, price, displayAmount){
+        displayAmount.innerHTML = `PHP ${quantity * price}`;
+    }
+    function deleteProduct(prodId, size, userCart, row){
+        const delModalContainer = document.getElementById('delModalContainer');
+        delModalContainer.classList.replace('hidden', 'flex');
+        delModalContainer.classList.add('fixed','top-0','left-0','bottom-0','right-0','bg-black/20','items-center','justify-center');
 
-    function createCartItem(userCart){
+        const delModal = document.createElement('div');
+        delModal.classList.add('min-w-[400px]','min-h-[200px]','bg-customCream','shadow-md','rounded-sm','p-5');
+
+        const delMsg = document.createElement('p');
+        delMsg.innerText = 'Do you want to remove this item?';
+        delModal.appendChild(delMsg);
+
+        delModalContainer.appendChild(delModal);
+    }
+    function createCartItem(cartProdInfo, prod){
         const tr = document.createElement('tr');
-            
+        
         const product = document.createElement('td');
-        product.classList.add('flex', 'items-center');
+        const productInfoContainer = document.createElement('div');
+        productInfoContainer.classList.add('flex','items-center', 'justify-start');
         const productImg = document.createElement('img');
-        productImg.src = `/src/assets/product_image/${userCart.imageUrl}`;
-        productImg.classList.add('rounded-sm', 'h-[100px]');
-        product.appendChild(productImg);
+        productImg.src = `/src/assets/product_image/${cartProdInfo.imageUrl}`;
+        productImg.classList.add('rounded-sm', 'h-[80px]');
+        productInfoContainer.appendChild(productImg);
         const productName = document.createElement('p');
-        productName.innerText = userCart.name;
-        product.appendChild(productName);
+        productName.innerText = cartProdInfo.name;
+        productInfoContainer.appendChild(productName);
+
+        product.appendChild(productInfoContainer);
         tr.appendChild(product);
 
+        const userProdSize = document.createElement('td');
+        userProdSize.classList.add('text-center');
         const size = document.createElement('p');
-    
+        size.innerHTML = prod.productSize;
+        userProdSize.appendChild(size);
+        tr.appendChild(userProdSize);
+
+        const userProdQuant = document.createElement('td');
+        const div = document.createElement('div');
+        div.classList.add('flex', 'items-center', 'justify-center');
+            const minusButton = document.createElement('button');
+            minusButton.setAttribute('type', 'button');
+            minusButton.id = 'minusBtn';
+            minusButton.classList.add('px-2','border','border-gray-200','py-[6px]');
+                const minusIcon = document.createElement('i');
+                minusIcon.setAttribute('data-lucide','minus');
+                minusIcon.setAttribute('stroke','#6b7280');
+                minusIcon.classList.add('size-5');
+                minusButton.appendChild(minusIcon);
+        div.appendChild(minusButton);
+        userProdQuant.appendChild(div);
+
+        const quantityInput = document.createElement('input');
+        quantityInput.classList.add('w-16','py-1', 'px-2',  'bg-transparent', 'border', 'focus:outline-none' ,'text-center');
+        quantityInput.setAttribute('type', 'number');
+        quantityInput.setAttribute('min', '1');
+        quantityInput.id = 'quantity';
+        quantityInput.value = prod.quantity;
+        div.appendChild(quantityInput);
+            const plusButton = document.createElement('button');
+            plusButton.setAttribute('type', 'button');
+            plusButton.id = 'plusBtn';
+            plusButton.classList.add('px-2','border','border-gray-200','py-[6px]');
+                const plusIcon = document.createElement('i');
+                plusIcon.setAttribute('data-lucide','plus');
+                plusIcon.setAttribute('stroke','#6b7280');
+                plusIcon.classList.add('size-5');
+                plusButton.appendChild(plusIcon);
+            div.appendChild(plusButton);
+
+        const userProdPrice = document.createElement('td');
+        userProdPrice.classList.add('text-center');
+        const amount = document.createElement('p');
+        amount.innerHTML = `PHP ${prod.productPrice * prod.quantity}`;
+        userProdPrice.appendChild(amount);
+
+        const deleteTd = document.createElement('td');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add( 'flex', 'mx-auto');
+        const deleteIcon = document.createElement('i');
+                deleteIcon.setAttribute('data-lucide','trash-2');
+                deleteIcon.setAttribute('stroke','#FF0000');
+                deleteIcon.classList.add('size-4');
+                deleteBtn.appendChild(deleteIcon);
+        deleteTd.appendChild(deleteBtn);
+
+        tr.appendChild(userProdSize);
+        tr.appendChild(userProdQuant);
+        tr.appendChild(userProdPrice);
+        tr.appendChild(deleteTd);
         tbody.appendChild(tr);
+
+    minusButton.addEventListener('click', ()=>{   
+                if(quantityInput.value <= 1){
+                    quantityInput.value = 1;
+                
+                } else {
+                    --quantityInput.value;
+                }
+                updateAmount(quantityInput.value, prod.productPrice, amount);
+            });
+
+    quantityInput.addEventListener('input', () => {
+                if (quantityInput.value <= 0) {
+                    quantityInput.value = 1; 
+                }
+            });
+    quantityInput.addEventListener('change', ()=>{
+                updateAmount(quantityInput.value, prod.productPrice, amount);
+            });
+
+    plusButton.addEventListener('click', ()=>{
+                ++quantityInput.value;
+                updateAmount(quantityInput.value, prod.productPrice, amount);
+            });
+    deleteBtn.addEventListener('click', ()=>{
+        deleteProduct(prod.id,cartProdInfo.productSize,cartProdInfo,tr);
+    });
+    
+        
     }
 
-    if(localStorage.getItem('currentUserEmail') == "null"){
+    document.addEventListener('DOMContentLoaded', ()=>{
+        if(localStorage.getItem('currentUserEmail') == "null"){
         window.location.href = "/index.html";
-    } else {
-        head('Cart');
-        header('Cart');
-        footer();
-        
-        const cart = JSON.parse(localStorage.getItem('userCart')) || [];
-        const userCart = ()=>{
-            return cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail'));
+        } else {
+            head('Cart');
+            header('Cart');
+            footer();
+            
+            const cart = JSON.parse(localStorage.getItem('userCart')) || [];
+            const userCart = ()=>{
+                return cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail'));
+            }
+            
+            checkCart(userCart());
         }
-        
-        checkCart(userCart());
-
-        
-    }
+    });
+   
 </script>
 </html>
