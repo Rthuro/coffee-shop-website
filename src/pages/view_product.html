@@ -108,13 +108,13 @@
                 e.preventDefault();
                 const email = localStorage.getItem('currentUserEmail');
                 const userQuantity = quantity.value;
-
-                const userCart = { userEmail: email, productId: productId,quantity:userQuantity, productSize: sizeDropDown.value};
+                const prodPrice = getProdInfo.sizeOptions.find(size=> size.size == sizeDropDown.value);
+                const userCart = { userEmail: email, productId: productId,quantity:userQuantity, productSize: sizeDropDown.value, productPrice: prodPrice.price};
 
                 const cart = JSON.parse(localStorage.getItem('userCart')) || [];
 
                 const existingProd = cart.find(cartItem =>
-                    cartItem.userEmail === email && Number(cartItem.productId) ===productId
+                    cartItem.userEmail === email && Number(cartItem.productId) ===productId && cartItem.productSize === sizeDropDown.value
                 );
 
                 if(existingProd){
