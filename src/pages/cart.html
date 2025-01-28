@@ -19,7 +19,15 @@
         <tbody>
         </tbody>
     </table>
-    <div id="delModalContainer" class="hidden"></div>
+    <div id="delModalContainer" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
+        <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
+            <p id="delMsg"></p>
+            <div class="flex gap-3">
+                <button id="yesDelBtn" class="flex-1 border-none bg-customBlue text-customCream rounded-sm py-2">Yes</button>
+                <button id="noDelBtn" class="flex-1 rounded-sm border border-customBlue  py-2">No</button>
+            </div>
+        </div>
+    </div>
     <div class="flex flex-col items-end maxWidth mx-auto">
         <p id="total"></p>
         <a href="" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</a>
@@ -55,7 +63,7 @@
             tr.id = 'emptyCartMsg';
 
             const td = document.createElement('td');
-            td.colSpan = 4;
+            td.colSpan = 5;
         
             const i = document.createElement('i');
             i.setAttribute('data-lucide', 'shopping-basket');
@@ -77,19 +85,29 @@
     function updateAmount(quantity, price, displayAmount){
         displayAmount.innerHTML = `PHP ${quantity * price}`;
     }
-    function deleteProduct(prodId, size, userCart, row){
+
+    function deleteProduct(prodId, name, size,quantity){
         const delModalContainer = document.getElementById('delModalContainer');
+        const delMsg = document.getElementById('delMsg');
+        const noDelBtn = document.getElementById('noDelBtn');
+        const yesDelBtn = document.getElementById('yesDelBtn');
         delModalContainer.classList.replace('hidden', 'flex');
-        delModalContainer.classList.add('fixed','top-0','left-0','bottom-0','right-0','bg-black/20','items-center','justify-center');
 
-        const delModal = document.createElement('div');
-        delModal.classList.add('min-w-[400px]','min-h-[200px]','bg-customCream','shadow-md','rounded-sm','p-5');
+        delMsg.innerText = `Do you want to remove [ ${name + ' ' + size + ' ' + quantity}x ] ?`;
 
-        const delMsg = document.createElement('p');
-        delMsg.innerText = 'Do you want to remove this item?';
-        delModal.appendChild(delMsg);
+        noDelBtn.addEventListener('click', ()=>{
+          delModalContainer.classList.replace('flex', 'hidden');
+        });
 
-        delModalContainer.appendChild(delModal);
+        yesDelBtn.addEventListener('click',()=>{
+            const cart = JSON.parse(localStorage.getItem('userCart'));
+            const excludeDelItem =  cart.filter(item => !(item.productId == prodId && item.productSize == size && item.userEmail == localStorage.getItem('currentUserEmail'))  ); 
+ 
+            localStorage.setItem('userCart', JSON.stringify(excludeDelItem));
+            delModalContainer.classList.replace('flex', 'hidden');
+            window.location.href = "/src/pages/cart.html";
+        });
+
     }
     function createCartItem(cartProdInfo, prod){
         const tr = document.createElement('tr');
@@ -194,7 +212,7 @@
                 updateAmount(quantityInput.value, prod.productPrice, amount);
             });
     deleteBtn.addEventListener('click', ()=>{
-        deleteProduct(prod.id,cartProdInfo.productSize,cartProdInfo,tr);
+        deleteProduct(prod.productId,cartProdInfo.name,prod.productSize,prod.quantity);
     });
     
         
