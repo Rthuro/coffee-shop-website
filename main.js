@@ -13,7 +13,7 @@ const cookieProdContainer = document.getElementById('cookieProdContainer');
 
 coffeeProducts.forEach( (coffee)=>{
     const div = document.createElement('div');
-    div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer');
+    div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer','overflow-hidden');
     div.id = coffee.id;
     const img = document.createElement('img');
     img.classList.add('h-[70%]', 'hover:scale-105', 'ease-in','duration-200');
@@ -21,7 +21,7 @@ coffeeProducts.forEach( (coffee)=>{
     div.appendChild(img);
 
     const name  = document.createElement('p');
-    name.classList.add('font-medium', 'select-none');
+    name.classList.add('font-medium', 'select-none', 'text-center');
     name.innerHTML = coffee.name.toLocaleUpperCase();
     div.appendChild(name);
 
@@ -40,7 +40,7 @@ coffeeProducts.forEach( (coffee)=>{
 
 cookieProducts.forEach( (cookie)=>{
     const div = document.createElement('div');
-    div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer');
+    div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer','overflow-hidden');
     div.id = cookie.id;
     const img = document.createElement('img');
     img.classList.add('h-[70%]', 'hover:scale-105', 'ease-in','duration-200');
@@ -48,7 +48,7 @@ cookieProducts.forEach( (cookie)=>{
     div.appendChild(img);
 
     const name  = document.createElement('p');
-    name.classList.add('font-medium', 'select-none');
+    name.classList.add('font-medium', 'select-none', 'text-center');
     name.innerHTML = cookie.name.toLocaleUpperCase();
     div.appendChild(name);
 
