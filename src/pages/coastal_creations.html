@@ -6,18 +6,19 @@
     </header>
     <p class="font-bold text-6xl text-center my-8">MENU</p>
     <p class="text-center font-light">Our Coastal Creations</p>
-    <form action="" class="flex items-center justify-center my-12 maxWidth mx-auto">
+    <form action="" class="relative my-12 w-fit flex items-center mx-auto">
     
-        <input type="text" placeholder="Search" name=""  id="search" class="border border-customBlue rounded-sm py-2 pl-3 pr-8 bg-customCream focus:bg-customCream w-1/2 font-light focus:outline-none focus:shadow-md ">
-        <i data-lucide="search" stroke="#284961" class="-m-8 size-5"></i>
+        <input type="text" placeholder="Search" name=""  id="search" class="border border-customBlue rounded-sm py-2 pl-3 pr-8 bg-customCream focus:bg-customCream sm:w-[400px] xs:w-[250px] font-light focus:outline-none focus:shadow-md ">
+        <i data-lucide="search" stroke="#284961" class="absolute right-3 size-5"></i>
      
     </form>
     <main class="mx-auto maxWidth flex flex-col gap-3">
-        <div id="allProdContainer" class="grid grid-cols-3 grid-rows-1">
+        
+        <div id="allProdContainer" class="grid md:grid-cols-3 xs:grid-cols-2 px-3">
         </div>
         <p class="mx-auto text-xl font-light"></p>
     </main>
-    <footer class="h-64 mt-56 flex items-start justify-around maxWidth mx-auto">
+    <footer class="h-64 mt-40 flex flex-wrap items-start justify-around maxWidth mx-auto">
     </footer>
 </body>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -44,7 +45,7 @@
             if (search === '' || prod.name.toLowerCase().includes(search.toLowerCase())
               ){
                 const div = document.createElement('div');
-                div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer');
+                div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer','overflow-hidden');
                 div.id = prod.id;
                 const img = document.createElement('img');
                 img.classList.add('h-[70%]', 'hover:scale-105', 'ease-in','duration-200');
@@ -52,7 +53,7 @@
                 div.appendChild(img);
 
                 const name  = document.createElement('p');
-                name.classList.add('font-medium', 'select-none');
+                name.classList.add('font-medium', 'select-none','text-center');
                 name.innerHTML = prod.name.toLocaleUpperCase();
                 div.appendChild(name);
 
