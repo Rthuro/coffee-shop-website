@@ -4,33 +4,38 @@
     <body>
        <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
        </header>
-       <section class="flex items-center justify-center maxWidth mx-auto relative h-[90vh] z-10 overflow-hidden transition ">
-        <div class="absolute flex flex-col items-center justify-center ">
-            <p class="text-customCream text-7xl drop-shadow-md "> Azure Wave Café </p>
-        </div>
-            <img src="./src/assets/cafe_img/2.jpg" alt="image taken on Greetvi Coffee in korea" class=" h-full">
+      
+       <section class="relative h-[80vh] mx-auto  flex flex-col gap-6 items-center  maxWidth overflow-hidden pt-36 px-6 ">
+          <img src="/src/assets/logo/blue-azura-logo.png" alt="" srcset="" class="object-contain  ">
+            <p class="  sm:text-6xl xs:text-5xl text-center   drop-shadow-lg transition-all ease-in">Azure Wave Café </p>
+            <a href="/src/pages/coastal_creations.html" class="flex items-center w-fit gap-1 rounded-sm  border border-customBlue font-light py-2 px-4  ease-in-out md:text-md xs:text-sm ">
+               Explore our Coastal Creations
+               <i data-lucide="arrow-right" stroke="#284961" class="md:size-5 xs:size-4"></i>
+           </a>
+           <img src="/src/assets/hero_section/l_coffee_img.png" alt="" srcset="" class="absolute sm:top-[60%] xs:top-[70%]  
+           sm:w-[350px] xs:w-[300px]  transition-all ease-in-out z-0">
        </section>
-       <section class="min-h-72 my-8 bg-customBlue  flex flex-col items-center justify-center gap-2 px-4">
-            <p class="uppercase font-medium text-5xl text-center text-customCream"> Azure Wave Café is more than just a café</p>
-            <p class=" font-light text-customCream text-center">It’s your personal haven by the sea, right in the heart of the city</p>
-            <a href="/src/pages/coastal_creations.html" class="flex items-center gap-1 rounded-sm text-customCream border border-customCream mt-4 font-light py-2 px-4 hover:bg-customCream/10 ease-in hover:duration-200 ">
-                Explore our Coastal Creations
-                <i data-lucide="arrow-right" stroke="#faf6ed" class="size-5"></i>
-            </a>
-       </section>
-       <main class="mx-auto maxWidth mt-[15vh] flex flex-col gap-3">
+     
+     <section class="min-h-72 mb-8 bg-customBlue  flex flex-col items-center justify-center gap-2 px-6 ">
+               <p class="uppercase font-medium lg:text-5xl md:text-3xl xs:text-2xl text-center text-customCream transition-all ease-in"> Azure Wave Café is more than just a café</p>
+               <p class=" font-light text-customCream text-center">It’s your personal haven by the sea, right in the heart of the city</p>
+     </section>
+      
+      
+      
+       <main class="mx-auto maxWidth mt-[15vh] flex flex-col gap-3 px-3">
             <p class="font-bold text-6xl text-center">Coffee</p>
             <p class="text-center font-light">Experience the Essence of Ocean Breeze in Every Cup</p>
-            <div id="coffeeProdContainer" class="grid grid-cols-3 grid-rows-2">
+            <div id="coffeeProdContainer" class="grid md:grid-cols-3 xs:grid-cols-2">
             </div>
        </main>
-       <main class="mx-auto maxWidth mt-[15vh] flex flex-col gap-3">
+       <main class="mx-auto maxWidth mt-[15vh] flex flex-col gap-3 px-3">
             <p class="font-bold text-6xl text-center ">Cookies</p>
             <p class="text-center font-light">Enjoy the Crunch of Coastal Bliss.</p>
-            <div id="cookieProdContainer" class="grid grid-cols-3 grid-rows-1">
+            <div id="cookieProdContainer" class="grid md:grid-cols-3 xs:grid-cols-2 ">
             </div>
         </main>
-        <footer class="h-64 mt-40 flex items-start justify-around maxWidth mx-auto">
+        <footer class="h-64 mt-40 flex flex-wrap items-start justify-around maxWidth mx-auto">
         </footer>
     </body>
     <script src="https://unpkg.com/lucide@latest"></script>
