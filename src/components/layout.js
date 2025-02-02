@@ -13,14 +13,22 @@ export function head(title){
 export function header(page){
     const header = document.querySelector('header');
 
+    const hamburger = document.createElement('button');
+    hamburger.classList.add('md:hidden','xs:flex','w-[70px]');
+    const hamburgerIcon = document.createElement('i');
+    hamburgerIcon.setAttribute('data-lucide','menu');
+    hamburgerIcon.setAttribute('stroke','#284961');
+    hamburger.appendChild(hamburgerIcon);
+    header.appendChild(hamburger);
+
     const img = document.createElement('img');
     img.src = '/src/assets/logo/azure_waves.png';
-    img.classList.add('w-[200px]');
+    img.classList.add('sm:w-[200px]','xs:w-[150px]');
 
     header.appendChild(img)
 
     const nav = document.createElement('nav');
-    nav.classList.add('flex', 'justify-center', 'flex-1', 'gap-8');
+    nav.classList.add('flex', 'justify-center', 'flex-1', 'gap-8', 'xs:hidden','md:flex');
     page == 'Ocean Breeze'? nav.innerHTML += `<a href="/index.html" class='font underline'>Ocean Breeze</a>`: nav.innerHTML += `<a href="/index.html">Ocean Breeze</a>`;
 
     page == 'Coastal Creations'? nav.innerHTML += `<a href="/src/pages/coastal_creations.html" class='underline'>Coastal Creations</a>`: nav.innerHTML += `<a href="/src/pages/coastal_creations.html">Coastal Creations</a>`;
@@ -28,15 +36,15 @@ export function header(page){
     header.appendChild(nav);
 
     const div = document.createElement('div');
-    div.classList.add('text-customCream','w-[200px]', 'flex', 'justify-center', 'item-center');
+    div.classList.add('text-customCream','md:w-[200px]','xs:w-[70px]', 'flex', 'justify-end', 'item-center');
 
     div.innerHTML = '';
     const currentUserEmail = localStorage.getItem("currentUserEmail");
 
-    if(currentUserEmail == 'null'){
+    if(currentUserEmail == 'null' || currentUserEmail == null || !currentUserEmail){
        
         const a = document.createElement('a');
-        a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'py-2', 'px-4','rounded-sm','text-sm');
+        a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'sm:py-2','xs:py-1', 'sm:px-4','xs:px-2','rounded-sm','text-sm','self-end');
         a.innerHTML = 'Login';
         a.href = "/src/pages/login.html";
     
@@ -62,23 +70,28 @@ export function header(page){
    
     header.appendChild(div);
 
+    header.innerHTML += `
+    <nav class="hidden fixed top-[112px] left-0 bottom-0 right-0 bg-customCream">
+
+    </nav>`;
+
 }
 
 export function footer(){
     const footer = document.querySelector('footer');
     const footerLogoImg = document.createElement('img');
-    footerLogoImg.classList.add('w-28');
+    footerLogoImg.classList.add('sm:w-28','xs:w-20');
     footerLogoImg.src = '/src/assets/logo/logo.png';
     
     footer.appendChild(footerLogoImg);
     
     footer.innerHTML += `
-                <div class="flex flex-col gap-1 text-sm ">
-                    <p class="text-lg  font-medium">Address</p>
-                    <p class="text-[12px]">Azure Wave Café <br> 123 Seaside Boulevard <br> Coastal Town, CT 56789</p>
+                <div class="flex flex-col gap-1 sm:text-[12px] xs:text-[10px]">
+                    <p class="sm:text-lg xs:text-sm  font-medium">Address</p>
+                    <p>Azure Wave Café <br> 123 Seaside Boulevard <br> Coastal Town, CT 56789</p>
                 </div>
-                <div class="flex flex-col gap-1 text-sm">
-                    <p class="text-lg font-medium">Contact</p>
-                    <p class="text-[12px]">+639234567891 <br> azureWavesCafe@gmail.com</p>
+                <div class="flex flex-col gap-1 sm:text-[12px] xs:text-[10px]">
+                    <p class="sm:text-lg xs:text-sm font-medium">Contact</p>
+                    <p >+639234567891 <br> azureWavesCafe@gmail.com</p>
                 </div>`;
 }
