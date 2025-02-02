@@ -16,7 +16,7 @@ coffeeProducts.forEach( (coffee)=>{
     div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer','overflow-hidden');
     div.id = coffee.id;
     const img = document.createElement('img');
-    img.classList.add('h-[70%]', 'hover:scale-105', 'ease-in','duration-200');
+    img.classList.add('max-h-[300px]', 'hover:scale-105', 'ease-in','duration-200');
     img.src = `./src/assets/product_image/${coffee.imageUrl}`;
     div.appendChild(img);
 
@@ -43,7 +43,7 @@ cookieProducts.forEach( (cookie)=>{
     div.classList.add('max-w-[300px]','h-fit', 'flex', 'flex-col', 'items-center', 'gap-2','cursor-pointer','overflow-hidden');
     div.id = cookie.id;
     const img = document.createElement('img');
-    img.classList.add('h-[70%]', 'hover:scale-105', 'ease-in','duration-200');
+    img.classList.add('max-h-[300px]', 'hover:scale-105', 'ease-in','duration-200');
     img.src = `./src/assets/product_image/${cookie.imageUrl}`;
     div.appendChild(img);
 
