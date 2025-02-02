@@ -5,13 +5,12 @@
 <body>
     <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
     </header>
-    <main class=" maxWidth mx-auto my-8 h-[60vh] flex items-center">
-        <img src="" alt="" id="productImg" class="w-[50%] ">
-        <div class="flex flex-col gap-3 w-[50%]">
-            <p id="productName" class="text-5xl font-bold uppercase"></p>
+    <main class=" maxWidth mx-auto my-8 h-fit md:flex-row xs:flex-col flex md:items-center px-3">
+        <img src="" alt="" id="productImg" class=" md:w-[50%] xs:w-screen ">
+        <div class="flex flex-col gap-3 md:w-[50%] xs:w-full">
+            <p id="productName" class="md:text-5xl xs:text-3xl  font-bold uppercase"></p>
             <p id="productPrice" class="text-2xl"></p>
            <form action="" class="flex flex-col gap-3">
-            
             <div class="flex items-center">
                 <label for="quantity" class="mr-3">Quantity:</label>
                 <button type="button" id="minusBtn" class=" px-2 border border-gray-200 py-[6px]">
@@ -28,15 +27,15 @@
 
                 </select>
             </div>
-                <input type="submit" value="Place Order" class="bg-customBlue text-customCream py-2 rounded-sm w-1/2">
+                <input type="submit" value="Place Order" class="bg-customBlue text-customCream py-2 rounded-sm md:w-1/2 xs:w-full">
            </form>
         </div>
     </main>
-    <section class="maxWidth mx-auto flex flex-col gap-2 h-[50vh]">
+    <section class="maxWidth mx-auto flex flex-col gap-2 h-[50vh] px-3">
         <p class="text-2xl font-medium border-b py-2">Description</p>
         <p id="productDescrip"></p>
     </section>
-    <footer class="h-64 mt-56 flex items-start justify-around maxWidth mx-auto">
+    <footer class="h-64 mt-40 flex flex-wrap items-start justify-around maxWidth mx-auto">
     </footer>
 </body>
 <script src="https://unpkg.com/lucide@latest"></script>
