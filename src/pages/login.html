@@ -44,25 +44,24 @@
         if(!email.value == '' && !password.value == '' ){
             const users = JSON.parse(localStorage.getItem('users'));
 
-            let noUserFound = false;
             if(users){
-                for(let i =0; i < users.length; i++){
-                    if(users[i].email == email.value && users[i].password == password.value){
-                        localStorage.setItem('currentUserEmail',email.value);
-                        localStorage.setItem('currentUserPass',password.value);
-                        window.location.href = '/index.html';
-                        noUserFound = false;
-                        break;
-                    }else{
-                        noUserFound = true;
-                    }
+                const checkUser = users.find(user => user.email == email.value && user.password == password.value);
+                const incorrectPass = users.find(user => user.email == email.value && user.password != password.value);
+
+                if(checkUser){
+                    localStorage.setItem('currentUserEmail',email.value);
+                    localStorage.setItem('currentUserPass',password.value);
+                    window.location.href = '/index.html';
+                } else if(incorrectPass){
+                    confirmLogin.innerText = 'Wrong password.';
+                }else{
+                    confirmLogin.innerText = 'User not found.';
                 }
                
+            }else{
+                confirmLogin.innerText = 'User not found.';
             }
 
-            if(noUserFound){
-                   confirmLogin.innerHTML = 'User not found.';
-                }
         
         } else {
             email.style.borderColor = email.value == ''? 'red':'#284961';
