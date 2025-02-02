@@ -5,10 +5,10 @@
 <body>
     <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
     </header>
-    <p class="font-bold text-6xl text-center my-8">CART</p>
-    <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh]">
+    <p class="font-bold md:text-6xl xs:text-4xl text-center my-8">CART</p>
+    <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh] px-3  ">
         <thead >
-            <tr>
+            <tr >
                 <th class="w-[200px] font-medium">Product</th>
                 <th class="w-[200px] font-medium">Size</th>
                 <th class="w-[200px] font-medium">Quantity</th>
@@ -34,22 +34,89 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col items-end maxWidth mx-auto">
+    <div class="flex flex-col gap-3 items-end maxWidth mx-auto">
         <p id="total"></p>
-        <a href="" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</a>
+        <button id="checkoutBtn" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</button>
     </div>
-    <footer class="h-64 mt-56 flex items-start justify-around maxWidth mx-auto">
+
+    <div id="checkOutModalContainer" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
+        <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
+            <p class="text-lg font-medium text-center pb-2 border-b-2 border-dashed border-customBlue/20">Is this order correct?</p>
+            <ul id="items" class="list-none min-h-[150px] max-h-[200px] overflow-y-auto px-1">
+                <!-- Check out item list -->
+            </ul>
+            <p id="checkOutAmt" class="text-end  border-t-2 mt-1 border-dashed border-customBlue/20 pt-2"></p>
+            <div class="flex gap-3">
+                <button id="yesBtn" class="flex-1 border-none bg-customBlue text-customCream rounded-sm py-2">Yes</button>
+                <button id="noBtn" class="flex-1 rounded-sm border border-customBlue  py-2">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="receiptModal" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
+        <div class="max-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm px-2 py-2 flex flex-col gap-4">
+            <button id="closeReceiptModal" class="self-end">
+            <i  data-lucide="x"  stroke="#284961"></i>
+            </button>
+            <div id="receipt" class="flex flex-col gap-3 px-3 py-4 bg-customCream">     
+                <img src="/src/assets/logo/logo.png" alt="" srcset="" class="w-28 self-center">
+                <p id="orderNumber" class="font-medium text-lg"></p>
+                <div id="receiptDateTime" class="flex items-center justify-between pb-2 border-b border-customBlue">
+                    <p id="date"></p>
+                    <p id="time"></p>
+                </div>
+                <ul id="receiptItems" class="list-none px-1">
+                    <!-- Check out item list -->
+                </ul>
+                <p id="receiptAmt" class="text-end  border-t-2 mt-2 border-dashed border-customBlue/20 pt-2"></p>
+            </div>
+            <p class="font-light text-wrap text-center mt-3">Please screenshot or download your receipt and proceed to the counter for your payment.</p>
+            <button id="dlReceipt" class=" rounded-sm bg-customBlue text-customCream  py-2">Download Receipt</button>
+        </div>
+    </div>
+    <div id="emptyCartCheckout" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
+        <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm px-5 py-8 flex flex-col gap-4">
+            <p class="text-lg font-medium text-center ">Please add product to checkout.</p>
+            <button id="okayBtn" class=" border-none bg-customBlue text-customCream rounded-sm py-2">Okay</button> 
+        </div>
+    </div>
+    <footer class="h-64 mt-40 flex flex-wrap items-start justify-around maxWidth mx-auto">
     </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script type="module">
     import { head, header, footer } from "/src/components/layout.js";
     import { allProd } from "/src/services/product_data.js";
 
+   
     const tbody = document.querySelector('table tbody');
+    const total = document.getElementById('total');
+    // For checkout
+    const emptyCartCheckout = document.getElementById('emptyCartCheckout');
+    const okayBtn = document.querySelector('#emptyCartCheckout #okayBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const checkoutModal = document.getElementById('checkOutModalContainer');
+    const checkoutDisplayItems = document.querySelector('#checkOutModalContainer #items');
+    const checkOutNoBtn = document.querySelector('#checkOutModalContainer #noBtn');
+    const checkOutYesBtn = document.querySelector('#checkOutModalContainer #yesBtn');
+    const checkOutAmount = document.querySelector('#checkOutModalContainer #checkOutAmt');
+    // For Receipt
+    const receiptModal = document.getElementById('receiptModal');
+    const receipt = document.querySelector('#receiptModal #receipt');
+    const closeReceiptModal = document.querySelector('#receiptModal #closeReceiptModal');
+    const receiptItems = document.querySelector('#receiptModal #receiptItems');
+    const dlReceipt = document.querySelector('#receiptModal #dlReceipt');
+    const receiptAmt = document.querySelector('#receiptModal #receipt #receiptAmt');
+    const receiptOrderNum = document.querySelector('#receiptModal #receipt #orderNumber');
+    const receiptDate = document.querySelector('#receiptModal #receipt #receiptDateTime #date');
+    const receiptTime = document.querySelector('#receiptModal #receipt #receiptDateTime #time');
+
+    let totalAmt = 0;
 
     function checkCart(cart){
         const emptyCartMsg = document.getElementById('emptyCartMsg');
+        
         if(cart && cart.length > 0){
             if(emptyCartMsg){
                 emptyCartMsg.classList.add('hidden');
@@ -60,6 +127,7 @@
 
                if(prod){
                     createCartItem(prod, items);
+                    totalAmt += items.productPrice * items.quantity;
                }
             });
            
@@ -69,20 +137,27 @@
         }
         lucide.createIcons();
     }
+    
     function updateAmount(quantity, price, displayAmount, prodId, prodSize){
+        let updatedAmount = 0;
         displayAmount.innerHTML = `PHP ${quantity * price}`;
         const cart = JSON.parse(localStorage.getItem('userCart'));
         const updateCartItem = cart.find( item => item.productId == prodId && item.productSize == prodSize && item.userEmail == localStorage.getItem('currentUserEmail'));
         updateCartItem.quantity = quantity;
 
         localStorage.setItem('userCart', JSON.stringify(cart));
+        cart.forEach(item =>{
+            updatedAmount += item.productPrice * item.quantity;
+        });
+
+        total.innerText = `Total: PHP ${updatedAmount}`;
     }
 
     function deleteProduct(prodId, name, size,quantity){
         const delModalContainer = document.getElementById('delModalContainer');
         const delMsg = document.getElementById('delMsg');
-        const noDelBtn = document.getElementById('noDelBtn');
-        const yesDelBtn = document.getElementById('yesDelBtn');
+        const noDelBtn = document.querySelector('#delModalContainer #noDelBtn');
+        const yesDelBtn = document.querySelector('#delModalContainer #yesDelBtn');
         delModalContainer.classList.replace('hidden', 'flex');
 
         delMsg.innerText = `Do you want to remove [ ${name + ' ' + size + ' ' + quantity}x ] ?`;
@@ -101,9 +176,12 @@
         });
 
     }
+    
     function createCartItem(cartProdInfo, prod){
+        
         const tr = document.createElement('tr');
         
+
         const product = document.createElement('td');
         const productInfoContainer = document.createElement('div');
         productInfoContainer.classList.add('flex','items-center', 'justify-start');
@@ -181,6 +259,7 @@
         tr.appendChild(deleteTd);
         tbody.appendChild(tr);
 
+
     minusButton.addEventListener('click', ()=>{   
                 if(quantityInput.value <= 1){
                     quantityInput.value = 1;
@@ -195,6 +274,7 @@
                 if (quantityInput.value <= 0) {
                     quantityInput.value = 1; 
                 }
+                updateAmount(quantityInput.value, prod.productPrice, amount, prod.productId,prod.productSize);
             });
     quantityInput.addEventListener('change', ()=>{
                 updateAmount(quantityInput.value, prod.productPrice, amount, prod.prodId,prod.productSize);
@@ -210,9 +290,41 @@
     
         
     }
+    
+    function displayCheckOutItems(cartProdInfo, productName){
+        const li = document.createElement('li');
+        li.classList.add('py-1', 'flex','justify-between','items-center');
+        li.innerText = `${cartProdInfo.quantity}X  ${productName} (${cartProdInfo.productSize}) `;
+        const p = document.createElement('p');
+        p.innerText = `PHP ${cartProdInfo.productPrice}`;
+        li.appendChild(p);
+        checkoutDisplayItems.appendChild(li);
+        
+    }
 
+    function createReceipt(cartProdInfo,productName){
+        const li = document.createElement('li');
+        li.classList.add('py-1', 'flex','justify-between','items-center');
+        li.innerText = `${cartProdInfo.quantity}X  ${productName} (${cartProdInfo.productSize}) `;
+        const p = document.createElement('p');
+        p.innerText = `PHP ${cartProdInfo.productPrice}`;
+        li.appendChild(p);
+        receiptItems.appendChild(li);
+    }
+    
+    function clearList(parentElement){
+        // clear list in the checkout and receipt modal
+        const list = parentElement.querySelectorAll('li'); 
+                if( list.length > 0){
+                    list.forEach(item =>{
+                    item.remove();
+                    });
+              } 
+    }
+    
     document.addEventListener('DOMContentLoaded', ()=>{
-        if(localStorage.getItem('currentUserEmail') == "null"){
+        const currentUser = localStorage.getItem('currentUserEmail') ;
+        if(currentUser == "null" || currentUser == null || !currentUser){
         window.location.href = "/index.html";
         } else {
             head('Cart');
@@ -220,11 +332,63 @@
             footer();
             
             const cart = JSON.parse(localStorage.getItem('userCart')) || [];
-            const userCart = ()=>{
-                return cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail'));
-            }
+            checkCart(cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail')));
+
+            total.innerText = `Total: PHP ${totalAmt}`;
+
+            okayBtn.addEventListener('click', ()=>{
+                emptyCartCheckout.classList.replace('flex','hidden');
+            });
+
+            checkoutBtn.addEventListener('click', ()=>{
+            if(cart && cart.length <= 0){
+                    emptyCartCheckout.classList.replace('hidden','flex');
+            }else{
+                    checkoutModal.classList.replace('hidden','flex');
+                    cart.forEach(items =>{
+                        const prodInfo = allProd.find(product => items.productId == product.id);
+                        displayCheckOutItems(items, prodInfo.name);
+                    });
+                    checkOutAmount.innerText = `Total: PHP ${totalAmt}`;
+                }
+            });
+
+            checkOutNoBtn.addEventListener('click', ()=>{
+                checkoutModal.classList.replace('flex','hidden');
+                clearList(checkoutModal);
+            }); 
+
+            checkOutYesBtn.addEventListener('click', ()=>{
+                const date = new Date();
+                checkoutModal.classList.replace('flex','hidden');
+                receiptModal.classList.replace('hidden','flex');
+                cart.forEach(items =>{
+                        const prodInfo = allProd.find(product => items.productId == product.id);
+                        createReceipt(items, prodInfo.name);
+                    });
+                receiptOrderNum.innerText = `Order #${Math.floor(Math.random()*100)}`;
+                receiptDate.innerText = date.toDateString(); 
+                receiptTime.innerText = date.toLocaleTimeString(); 
+                receiptAmt.innerText = checkOutAmount.innerText;
+                clearList(checkoutModal);
+            });
+           
+            closeReceiptModal.addEventListener('click',()=>{
+                receiptModal.classList.replace('flex','hidden');
+                clearList(receiptModal);
+            });
+
+            dlReceipt.addEventListener('click', ()=>{
             
-            checkCart(userCart());
+                html2canvas(receipt).then(function(canvas){
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+                    link.download = "receipt.png";
+                    link.click();
+                });
+
+                receiptModal.classList.replace('flex','hidden');
+            });
         }
     });
    
