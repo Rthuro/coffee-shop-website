@@ -6,24 +6,33 @@
     <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
     </header>
     <p class="font-bold md:text-6xl xs:text-4xl text-center my-8">CART</p>
-    <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh] px-3  ">
-        <thead class="text-sm">
-            <tr >
-                <th class="xs:w-[150px] md:w-[300px] font-medium">Product</th>
-                <th class="xs:w-[100px] md:w-[200px] font-medium">Quantity</th>
-                <th class="xs:w-[100px] md:w-[200px] font-medium">Amount</th>
-                <th class="xs:w-[100px] md:w-[100px] font-medium">Actions</th>
-            </tr>
-        </thead>
-        <tbody class="text-xs">
-            <tr  id="emptyCartMsg" class="hidden">
-                <td colspan="4" >
-                    <i data-lucide ='shopping-basket' stroke="#6b7280" class="mx-auto size-10 mt-8"></i>
-                    <p class="text-gray-500 text-xl text-center">Empty cart</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <section class="flex flex-col gap-3 maxWidth w-fit mx-auto  my-16 items-center">
+        <table class=" table-fixed min-h-[20vh] px-3  ">
+            <thead class="text-sm">
+                <tr >
+                    <th class="max-w-[200px] w-[200px] font-medium">Product</th>
+                    <th class="max-w-[200px] w-[200px] font-medium">Quantity</th>
+                    <th class="max-w-[200px] w-[200px] font-medium">Amount</th>
+                    <th class="w-fit font-medium">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-xs">
+                <tr  id="emptyCartMsg" class="hidden">
+                    <td colspan="4" >
+                        <i data-lucide ='shopping-basket' stroke="#6b7280" class="mx-auto size-10 mt-8"></i>
+                        <p class="text-gray-500 text-xl text-center">Empty cart</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex flex-col gap-3 text-sm items-end maxWidth px-4 self-end">
+            <p id="total"></p>
+            <button id="checkoutBtn" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</button>
+        </div>
+    
+    </section>
+    
+
     <div id="delModalContainer" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
         <div class="max-w-[350px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
             <p id="delMsg"></p>
@@ -33,11 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col gap-3 text-sm items-end maxWidth px-4 mx-auto">
-        <p id="total"></p>
-        <button id="checkoutBtn" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</button>
-    </div>
-
+   
     <div id="checkOutModalContainer" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
         <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
             <p class="text-lg font-medium text-center pb-2 border-b-2 border-dashed border-customBlue/20">Is this order correct?</p>
@@ -111,11 +116,11 @@
     const receiptDate = document.querySelector('#receiptModal #receipt #receiptDateTime #date');
     const receiptTime = document.querySelector('#receiptModal #receipt #receiptDateTime #time');
 
-    let totalAmt = 0;
+   
 
     function checkCart(cart){
         const emptyCartMsg = document.getElementById('emptyCartMsg');
-        
+        let totalAmt = 0;
         if(cart && cart.length > 0){
             if(emptyCartMsg){
                 emptyCartMsg.classList.add('hidden');
@@ -129,6 +134,8 @@
                     totalAmt += items.productPrice * items.quantity;
                }
             });
+
+            total.innerText = `Total: PHP ${totalAmt}`;
            
         }else{
             emptyCartMsg.classList.remove('hidden');
@@ -186,10 +193,10 @@
         productInfoContainer.classList.add('flex','items-center', 'justify-start');
         const productImg = document.createElement('img');
         productImg.src = `/src/assets/product_image/${cartProdInfo.imageUrl}`;
-        productImg.classList.add('rounded-sm', 'h-[80px]');
+        productImg.classList.add('rounded-sm', 'h-[60px]');
         productInfoContainer.appendChild(productImg);
         const productName = document.createElement('a');
-        productName.classList.add('text-wrap');
+        productName.classList.add('text-wrap','word-wrap');
         productName.innerText = `${cartProdInfo.name} (${prod.productSize})`;
         productName.href = `view_product.html?id=${prod.productId}`;
         productInfoContainer.appendChild(productName);
@@ -325,24 +332,25 @@
             
             const cart = JSON.parse(localStorage.getItem('userCart')) || [];
             checkCart(cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail')));
-
-            total.innerText = `Total: PHP ${totalAmt}`;
-
+ 
             okayBtn.addEventListener('click', ()=>{
                 emptyCartCheckout.classList.replace('flex','hidden');
             });
 
             checkoutBtn.addEventListener('click', ()=>{
-            if(cart && cart.length <= 0){
-                    emptyCartCheckout.classList.replace('hidden','flex');
-            }else{
-                    checkoutModal.classList.replace('hidden','flex');
-                    cart.forEach(items =>{
-                        const prodInfo = allProd.find(product => items.productId == product.id);
-                        displayCheckOutItems(items, prodInfo.name);
-                    });
-                    checkOutAmount.innerText = `Total: PHP ${totalAmt}`;
-                }
+                if(cart && cart.length <= 0){
+                        emptyCartCheckout.classList.replace('hidden','flex');
+                }else{
+                        checkoutModal.classList.replace('hidden','flex');
+                        const getUpdatedCart = JSON.parse(localStorage.getItem('userCart'));
+                        let totalAmt = 0;
+                        getUpdatedCart.forEach(items =>{
+                            const prodInfo = allProd.find(product => items.productId == product.id);
+                            displayCheckOutItems(items, prodInfo.name);
+                            totalAmt += items.productPrice * items.quantity;
+                        });
+                        checkOutAmount.innerText = `Total: PHP ${totalAmt}`;
+                    }
             });
 
             checkOutNoBtn.addEventListener('click', ()=>{
@@ -354,7 +362,8 @@
                 const date = new Date();
                 checkoutModal.classList.replace('flex','hidden');
                 receiptModal.classList.replace('hidden','flex');
-                cart.forEach(items =>{
+                const getUpdatedCart = JSON.parse(localStorage.getItem('userCart'));
+                getUpdatedCart.forEach(items =>{
                         const prodInfo = allProd.find(product => items.productId == product.id);
                         createReceipt(items, prodInfo.name);
                     });
