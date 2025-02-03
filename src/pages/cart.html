@@ -7,16 +7,16 @@
     </header>
     <p class="font-bold md:text-6xl xs:text-4xl text-center my-8">CART</p>
     <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh] px-3  ">
-        <thead >
+        <thead class="text-sm">
             <tr >
-                <th class="w-[200px] font-medium">Product</th>
-                <th class="w-[200px] font-medium">Size</th>
-                <th class="w-[200px] font-medium">Quantity</th>
-                <th class="w-[200px] font-medium">Amount</th>
-                <th class="w-[100px] font-medium">Actions</th>
+                <th class="xs:w-[100px] md:w-[200px] font-medium">Product</th>
+                <th class="xs:w-[100px] md:w-[200px] font-medium">Size</th>
+                <th class="xs:w-[100px] md:w-[200px] font-medium">Quantity</th>
+                <th class="xs:w-[100px] md:w-[200px] font-medium">Amount</th>
+                <th class="xs:w-[100px] md:w-[100px] font-medium">Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-xs">
             <tr  id="emptyCartMsg" class="hidden">
                 <td colspan="5" >
                     <i data-lucide ='shopping-basket' stroke="#6b7280" class="mx-auto size-10 mt-8"></i>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col gap-3 items-end maxWidth mx-auto">
+    <div class="flex flex-col gap-3 text-sm items-end maxWidth px-4 mx-auto">
         <p id="total"></p>
         <button id="checkoutBtn" class=" py-2 px-4 bg-customBlue text-customCream w-fit rounded-sm">Checkout</button>
     </div>
@@ -214,13 +214,13 @@
                 const minusIcon = document.createElement('i');
                 minusIcon.setAttribute('data-lucide','minus');
                 minusIcon.setAttribute('stroke','#6b7280');
-                minusIcon.classList.add('size-5');
+                minusIcon.classList.add('size-3');
                 minusButton.appendChild(minusIcon);
         div.appendChild(minusButton);
         userProdQuant.appendChild(div);
 
         const quantityInput = document.createElement('input');
-        quantityInput.classList.add('w-16','py-1', 'px-2',  'bg-transparent', 'border', 'focus:outline-none' ,'text-center');
+        quantityInput.classList.add('w-10','py-1', 'px-1',  'bg-transparent', 'border', 'focus:outline-none' ,'text-center');
         quantityInput.setAttribute('type', 'number');
         quantityInput.setAttribute('min', '1');
         quantityInput.id = 'quantity';
@@ -233,7 +233,7 @@
                 const plusIcon = document.createElement('i');
                 plusIcon.setAttribute('data-lucide','plus');
                 plusIcon.setAttribute('stroke','#6b7280');
-                plusIcon.classList.add('size-5');
+                plusIcon.classList.add('size-3');
                 plusButton.appendChild(plusIcon);
             div.appendChild(plusButton);
 
