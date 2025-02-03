@@ -9,8 +9,7 @@
     <table class="maxWidth mx-auto my-16 table-fixed min-h-[20vh] px-3  ">
         <thead class="text-sm">
             <tr >
-                <th class="xs:w-[100px] md:w-[200px] font-medium">Product</th>
-                <th class="xs:w-[100px] md:w-[200px] font-medium">Size</th>
+                <th class="xs:w-[150px] md:w-[300px] font-medium">Product</th>
                 <th class="xs:w-[100px] md:w-[200px] font-medium">Quantity</th>
                 <th class="xs:w-[100px] md:w-[200px] font-medium">Amount</th>
                 <th class="xs:w-[100px] md:w-[100px] font-medium">Actions</th>
@@ -18,7 +17,7 @@
         </thead>
         <tbody class="text-xs">
             <tr  id="emptyCartMsg" class="hidden">
-                <td colspan="5" >
+                <td colspan="4" >
                     <i data-lucide ='shopping-basket' stroke="#6b7280" class="mx-auto size-10 mt-8"></i>
                     <p class="text-gray-500 text-xl text-center">Empty cart</p>
                 </td>
@@ -26,7 +25,7 @@
         </tbody>
     </table>
     <div id="delModalContainer" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
-        <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
+        <div class="max-w-[350px] min-h-fit bg-customCream shadow-md rounded-sm p-5 flex flex-col gap-4">
             <p id="delMsg"></p>
             <div class="flex gap-3">
                 <button id="yesDelBtn" class="flex-1 border-none bg-customBlue text-customCream rounded-sm py-2">Yes</button>
@@ -75,7 +74,7 @@
         </div>
     </div>
     <div id="emptyCartCheckout" class="hidden fixed top-0 left-0 bottom-0 right-0 bg-black/20 items-center justify-center">
-        <div class="min-w-[400px] min-h-fit bg-customCream shadow-md rounded-sm px-5 py-8 flex flex-col gap-4">
+        <div class="max-w-[350px] min-h-fit bg-customCream shadow-md rounded-sm px-5 py-8 flex flex-col gap-4">
             <p class="text-lg font-medium text-center ">Please add product to checkout.</p>
             <button id="okayBtn" class=" border-none bg-customBlue text-customCream rounded-sm py-2">Okay</button> 
         </div>
@@ -190,19 +189,13 @@
         productImg.classList.add('rounded-sm', 'h-[80px]');
         productInfoContainer.appendChild(productImg);
         const productName = document.createElement('a');
-        productName.innerText = cartProdInfo.name;
+        productName.classList.add('text-wrap');
+        productName.innerText = `${cartProdInfo.name} (${prod.productSize})`;
         productName.href = `view_product.html?id=${prod.productId}`;
         productInfoContainer.appendChild(productName);
 
         product.appendChild(productInfoContainer);
         tr.appendChild(product);
-
-        const userProdSize = document.createElement('td');
-        userProdSize.classList.add('text-center');
-        const size = document.createElement('p');
-        size.innerHTML = prod.productSize;
-        userProdSize.appendChild(size);
-        tr.appendChild(userProdSize);
 
         const userProdQuant = document.createElement('td');
         const div = document.createElement('div');
@@ -220,7 +213,7 @@
         userProdQuant.appendChild(div);
 
         const quantityInput = document.createElement('input');
-        quantityInput.classList.add('w-10','py-1', 'px-1',  'bg-transparent', 'border', 'focus:outline-none' ,'text-center');
+        quantityInput.classList.add('w-10','py-1', 'px-1',  'bg-transparent', 'border', 'focus:outline-none' ,'text-center','rounded-none');
         quantityInput.setAttribute('type', 'number');
         quantityInput.setAttribute('min', '1');
         quantityInput.id = 'quantity';
@@ -253,7 +246,6 @@
                 deleteBtn.appendChild(deleteIcon);
         deleteTd.appendChild(deleteBtn);
 
-        tr.appendChild(userProdSize);
         tr.appendChild(userProdQuant);
         tr.appendChild(userProdPrice);
         tr.appendChild(deleteTd);
@@ -388,7 +380,6 @@
                 });
 
                 receiptModal.classList.replace('flex','hidden');
-                clearList(receiptModal);
             });
         }
     });
