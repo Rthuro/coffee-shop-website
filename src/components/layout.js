@@ -14,7 +14,8 @@ export function header(page){
     const header = document.querySelector('header');
 
     const hamburger = document.createElement('button');
-    hamburger.classList.add('md:hidden','xs:flex','w-[70px]');
+     hamburger.id = 'hamburgerMenu' ;
+    hamburger.classList.add('md:hidden','xs:flex','w-[70px]','peer-checked:hamburger');
     const hamburgerIcon = document.createElement('i');
     hamburgerIcon.setAttribute('data-lucide','menu');
     hamburgerIcon.setAttribute('stroke','#284961');
@@ -71,9 +72,18 @@ export function header(page){
     header.appendChild(div);
 
     header.innerHTML += `
-    <nav class="hidden fixed top-[112px] left-0 bottom-0 right-0 bg-customCream">
-
+    <nav id='mobileNav' class="hidden fixed flex-col gap-3 py-6 top-[100px] border-t border-customBlue left-0  bottom-0  bg-customCream z-50 origin-left duration-200 right-0 animate-appear">
+        <a href='/index.html' class='border-b border-customBlue/60 pb-3 px-3'>Ocean Breeze</a>
+        <a href='/src/pages/coastal_creations.html' class='border-b border-customBlue/60 pb-3 px-3'>Coastal Creations</a>
     </nav>`;
+
+    const mobileNav = document.getElementById('mobileNav');
+    const hamburgerBtn = document.getElementById('hamburgerMenu');
+    hamburgerBtn.addEventListener('click',()=>{
+        if(hamburgerBtn.style.display = 'flex'){
+            mobileNav.style.display = mobileNav.style.display == 'flex'? 'none':'flex';
+        }
+    });
 
 }
 
