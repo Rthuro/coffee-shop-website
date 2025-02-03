@@ -115,7 +115,7 @@
             form.onsubmit = (e)=>{
                 e.preventDefault();
                 const email = localStorage.getItem('currentUserEmail');
-                const userQuantity = quantity.value;
+                const userQuantity = parseInt(quantity.value) ;
                 const prodPrice = getProdInfo.sizeOptions.find(size=> size.size == sizeDropDown.value);
                 const userCart = { userEmail: email, productId: productId,quantity:userQuantity, productSize: sizeDropDown.value, productPrice: prodPrice.price};
 
