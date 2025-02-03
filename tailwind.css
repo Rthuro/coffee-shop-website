@@ -799,6 +799,10 @@ input[type="number"]::-webkit-inner-spin-button,
   width: fit-content;
 }
 
+.w-\[120px\]{
+  width: 120px;
+}
+
 .min-w-\[200px\]{
   min-width: 200px;
 }
@@ -825,6 +829,22 @@ input[type="number"]::-webkit-inner-spin-button,
 
 .max-w-\[500px\]{
   max-width: 500px;
+}
+
+.max-w-\[150px\]{
+  max-width: 150px;
+}
+
+.max-w-\[100px\]{
+  max-width: 100px;
+}
+
+.max-w-\[120px\]{
+  max-width: 120px;
+}
+
+.max-w-\[10px\]{
+  max-width: 10px;
 }
 
 .flex-1{
@@ -1131,6 +1151,10 @@ input[type="number"]::-webkit-inner-spin-button,
 
 .text-center{
   text-align: center;
+}
+
+.text-start{
+  text-align: start;
 }
 
 .text-end{
