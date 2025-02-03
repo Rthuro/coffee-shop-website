@@ -12,6 +12,15 @@ module.exports = {
         'customCream': '#FAF6ED',
         'customBlue': '#284961',
       },
+      animation: {
+        'appear': 'appear 0.2s ease-in-out forwards',
+      },
+      keyframes: {
+        appear: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' }
+        }
+      }
     },
     
   },
