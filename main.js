@@ -2,13 +2,6 @@
 import  { head, header, footer  }  from "/src/components/layout.js";
 import  { coffeeProducts , cookieProducts }  from "/src/services/product_data.js";
 
-const body = document.querySelector('html');
-
-setTimeout(()=>{
-    body.style.opacity = '1';
-}, 500);
-
-
 head('Ocean Breeze');
 header('Ocean Breeze');
 footer();
