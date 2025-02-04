@@ -1,8 +1,7 @@
 
-import  { head, header, footer  }  from "/src/components/layout.js";
+import  { header, footer  }  from "/src/components/layout.js";
 import  { coffeeProducts , cookieProducts }  from "/src/services/product_data.js";
 
-head('Ocean Breeze');
 header('Ocean Breeze');
 footer();
 lucide.createIcons();
