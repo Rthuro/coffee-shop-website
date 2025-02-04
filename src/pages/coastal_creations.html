@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Azure Waves Café | Coastal Creations</title>
+      <link rel="shortcut icon" href="/src/assets/logo/logo.png" type="image/x-icon">
+      <link rel="stylesheet" href="/tailwind.css"> 
+</head>
 <body>
     <header class="flex items-center justify-between maxWidth mx-auto py-8 px-4 bg-customCream">
     </header>
@@ -23,10 +29,9 @@
 </body>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script type="module">
-    import  { head, header, footer  }  from "/src/components/layout.js";
+    import  { header, footer  }  from "/src/components/layout.js";
     import  { allProd }  from "/src/services/product_data.js";
 
-    head('Coastal Creations');
     header('Coastal Creations');
     footer();
     lucide.createIcons();
