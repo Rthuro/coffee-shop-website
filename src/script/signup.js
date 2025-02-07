@@ -34,15 +34,13 @@
                 const checkIfUserExists = JSON.parse(localStorage.getItem('users'));
 
                 if(checkIfUserExists){
-                    for(let i =0; i < checkIfUserExists.length; i++){
-
-                        if(checkIfUserExists[i].email == email.value && checkIfUserExists[i].password == password.value){
-                            signUpErr.innerHTML = 'User already exists.';
-                            break;
-                        }else{
-                            
+                   // Check if the user already exists in local storage by matching email and password
+                    const findUser = checkIfUserExists.find(user => user.email == email.value && user.password == password.value);
+                    if(findUser){
+                        signUpErr.innerHTML = 'User already exists.';
+                    }else{
                             const user ={ email: email.value,
-                                password:password.value, };
+                            password:password.value, };
                             
                             //If no users exist, initialized an empty array
                             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -50,12 +48,9 @@
 
                             localStorage.setItem('users', JSON.stringify(users));
                             window.location.href = './login.html';
-                            break;
-                        }
                     }
                 }else{
-                            const user ={ email: email.value,
-                                password:password.value, };
+                        const user ={ email: email.value, password:password.value, };
                             
                             //If no users exist, initialized an empty array
                             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -70,6 +65,7 @@
                 confirmPassErr.innerHTML = 'Password and confirm password do not match.';
             } 
         } else {
+            // If any of the input field is empty then change the border color
             email.style.borderColor = email.value == ''? 'red':'#284961';
             password.style.borderColor = password.value == ''? 'red':'#284961';
             confirmPassword.style.borderColor = confirmPassword.value == ''? 'red':'#284961';
