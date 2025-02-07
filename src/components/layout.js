@@ -23,7 +23,7 @@ export function header(page){
 
     const navLinks = [
         { 
-            link:"/index",
+            link:"/ocean-breeze",
             text: "Ocean Breeze"
         },
         {
