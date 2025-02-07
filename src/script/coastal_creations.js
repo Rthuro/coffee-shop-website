@@ -1,4 +1,4 @@
-import  { header, footer  }  from "/src/components/layout.js";
+import  { header, footer, isLocal  }  from "/src/components/layout.js";
 import  { allProd }  from "/src/services/product_data.js";
 
 header('Coastal Creations');
@@ -41,7 +41,7 @@ function prod(search){
             allProdContainer.appendChild(div);
 
             div.addEventListener('click', ()=>{
-            window.location.href = `/view-product?id=${prod.id}`
+            window.location.href = isLocal ? `/src/pages/view_product.html?id=${prod.id}` : `/view-product?id=${prod.id}`;
             });
 
             result++;

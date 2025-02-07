@@ -1,10 +1,14 @@
+
+    import { isLocal } from "/src/components/layout.js";
     const form = document.querySelector('form');
     const confirmLogin = document.getElementById('confirmLogin');
     const email = document.getElementById('email');
     const showPassword = document.getElementById('showPassword');
     const password = document.getElementById('password');
+    const signupBtn = document.getElementById('signupBtn');
 
-    email.addEventListener('input', ()=>{
+    signupBtn.href = isLocal ? "/src/pages/signup.html": "/signup";
+    email.addEventListener('input', ()=>{   
         email.style.borderColor = email.value == ''? 'red':'#284961';
     });
     password.addEventListener('input', ()=>{
@@ -28,6 +32,7 @@
                     localStorage.setItem('currentUserEmail',email.value);
                     localStorage.setItem('currentUserPass',password.value);
                     window.location.href = '/ocean-breeze';
+                    window.location.href =isLocal ? '/index.html' : '/ocean-breeze';
                 } else if(incorrectPass){
                     confirmLogin.innerText = 'Wrong password.';
                 }else{

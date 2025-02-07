@@ -1,8 +1,8 @@
-import { header, footer } from "/src/components/layout.js";
+import { header, footer, isLocal } from "/src/components/layout.js";
     document.addEventListener('DOMContentLoaded', ()=>{
         const currentUser = localStorage.getItem('currentUserEmail');
         if(currentUser == "null" || currentUser == null || !currentUser){
-        window.location.href = "/ocean-breeze";
+        window.location.href = isLocal? "/index.html" : "/ocean-breeze";
         } else {
             header('Account');
             footer();
@@ -16,7 +16,7 @@ import { header, footer } from "/src/components/layout.js";
                 // Set the currentUserEmail and currentUserPass to null
                 localStorage.setItem('currentUserEmail',null);
                 localStorage.setItem('currentUserPass',null);
-                window.location.href = "/ocean-breeze";
+                window.location.href =  isLocal? "/index.html" : "/ocean-breeze";
             });
 
             deleteAcc.addEventListener('click',()=>{
@@ -36,7 +36,7 @@ import { header, footer } from "/src/components/layout.js";
                 localStorage.setItem('currentUserEmail',null);
                 localStorage.setItem('currentUserPass',null);
 
-                window.location.href = "/ocean-breeze";
+                window.location.href =  isLocal? "/index.html" : "/ocean-breeze";
             });
         }
     });

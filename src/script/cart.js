@@ -1,4 +1,4 @@
-import { header, footer } from "/src/components/layout.js";
+import { header, footer, isLocal } from "/src/components/layout.js";
 import { allProd } from "/src/services/product_data.js";
 
 // For table
@@ -94,7 +94,7 @@ function deleteProduct(prodId, name, size,quantity){
 
         localStorage.setItem('userCart', JSON.stringify(excludeDelItem));
         delModalContainer.classList.replace('flex', 'hidden');
-        window.location.href = "/cart";
+        window.location.href = isLocal? "/src/pages/cart.html":"/cart";
     });
 
 }
@@ -114,7 +114,7 @@ function createCartItem(cartProdInfo, prod){
     const productName = document.createElement('a');
     productName.classList.add('text-wrap','word-wrap');
     productName.innerText = `${cartProdInfo.name} (${prod.productSize})`;
-    productName.href = `/view-product?id=${prod.productId}`;
+    productName.href = isLocal? `/src/pages/view_product.html?id=${prod.productId}`: `/view-product?id=${prod.productId}`
     productInfoContainer.appendChild(productName);
 
     product.appendChild(productInfoContainer);
@@ -246,7 +246,7 @@ function clearList(parentElement){
 document.addEventListener('DOMContentLoaded', ()=>{
     const currentUser = localStorage.getItem('currentUserEmail') ;
     if(currentUser == "null" || currentUser == null || !currentUser){
-    window.location.href = "/ocean-breeze";
+    window.location.href = isLocal? "/index.html" : "/ocean-breeze";
     } else {
         header('Cart');
         footer();

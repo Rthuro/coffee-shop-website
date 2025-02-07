@@ -1,14 +1,16 @@
 
-import  { header, footer  }  from "/src/components/layout.js";
+import  { header, footer , isLocal }  from "/src/components/layout.js";
 import  { coffeeProducts , cookieProducts }  from "/src/services/product_data.js";
 
 header('Ocean Breeze');
 footer();
 lucide.createIcons();
 
-
+const heroBtn = document.getElementById('heroBtn');
 const coffeeProdContainer = document.getElementById('coffeeProdContainer');
 const cookieProdContainer = document.getElementById('cookieProdContainer');
+
+heroBtn.href = isLocal ? "/src/pages/coastal_creations.html": "/coastal-creations";
 
 coffeeProducts.forEach( (coffee)=>{
     const div = document.createElement('div');
@@ -16,7 +18,7 @@ coffeeProducts.forEach( (coffee)=>{
     div.id = coffee.id;
     const img = document.createElement('img');
     img.classList.add('max-h-[300px]', 'hover:scale-105', 'ease-in','duration-200');
-    img.src = `./src/assets/product_image/${coffee.imageUrl}`;
+    img.src = `/src/assets/product_image/${coffee.imageUrl}`;
     div.appendChild(img);
 
     const name  = document.createElement('p');
@@ -33,7 +35,7 @@ coffeeProducts.forEach( (coffee)=>{
     coffeeProdContainer.appendChild(div);
 
     div.addEventListener('click', ()=>{
-        window.location.href = `/view-product?id=${coffee.id}`
+        window.location.href = isLocal? `/src/pages/view_product.html?id=${coffee.id}`: `/view-product?id=${coffee.id}`
     });
 });
 
@@ -60,7 +62,7 @@ cookieProducts.forEach( (cookie)=>{
     cookieProdContainer.appendChild(div);
 
     div.addEventListener('click', ()=>{
-        window.location.href = `/view-product?id=${cookie.id}`
+       window.location.href = isLocal? `/src/pages/view_product.html?id=${cookie.id}`: `/view-product?id=${cookie.id}`
     });
 });
 

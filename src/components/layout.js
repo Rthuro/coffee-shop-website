@@ -1,4 +1,7 @@
 
+// check if it is deployed or run locally
+export const isLocal = window.location.port == '5500';
+
 export function header(page){
     const header = document.querySelector('header');
 
@@ -21,13 +24,15 @@ export function header(page){
     nav.id = "mainNav";
     nav.classList.add('flex', 'justify-center', 'flex-1', 'gap-8', 'xs:hidden','md:flex');
 
+   
+
     const navLinks = [
         { 
-            link:"/ocean-breeze",
+            link: isLocal ? "/index.html" : "/ocean-breeze",
             text: "Ocean Breeze"
         },
         {
-            link:"/coastal-creations",
+            link: isLocal ? "/src/pages/coastal_creations.html" : "/coastal-creations",
             text: "Coastal Creations"
         }
 
@@ -54,20 +59,20 @@ export function header(page){
         const a = document.createElement('a');
         a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'sm:py-2','xs:py-1', 'sm:px-4','xs:px-2','rounded-sm','text-sm','self-end');
         a.innerHTML = 'Login';
-        a.href = "/login";
+        a.href = isLocal ? "/src/pages/login.html" : "/login";
     
         div.appendChild(a);
     }else{
         div.classList.add('gap-2');
         const a1 = document.createElement('a');
-        a1.href = "/cart";
+        a1.href =  isLocal ? "/src/pages/cart.html" : "/cart";
             const i1 = document.createElement('i');
             i1.classList.add('size-5');
             i1.setAttribute('data-lucide', 'shopping-bag');
             a1.appendChild(i1);
         div.appendChild(a1);
         const a2 = document.createElement('a');
-        a2.href = "/account";
+        a2.href =  isLocal ? "/src/pages/account.html" : "/account";
             const i2 = document.createElement('i');
             i2.classList.add('size-5');
             i2.setAttribute('data-lucide', 'user-round');
@@ -80,21 +85,21 @@ export function header(page){
 
     const mobileNav = document.createElement('nav');
     mobileNav.id = 'mobileNav';
-    mobileNav.classList.add('hidden', 'fixed', 'flex-col', 'gap-3', 'py-6', 'top-[100px]', 'border-t', 'border-customBlue', 'left-0', 'bottom-0', 'bg-customCream', 'z-50', 'origin-left', 'duration-200', 'right-0', 'animate-appear');
+    mobileNav.classList.add('hidden', 'fixed', 'flex-col', 'gap-3', 'py-6', 'top-[100px]', 'border-t', 'border-customBlue', 'left-0', 'bottom-0', 'bg-customCream', 'z-50', 'origin-left' , 'duration-200', 'right-0', 'animate-appear');
 
     const mobileHeaderLinks = [
         {
-            link: "/ocean-breeze",
+            link:isLocal? "/index.html": "/ocean-breeze",
             text: "Ocean Breeze"
         },
         {
-            link: "/coastal-creations",
+            link:isLocal? "/src/pages/coastal_creations.html": "/coastal-creations",
             text: "Coastal Creations"
         }];
     
         mobileHeaderLinks.forEach(linkData => {
             const link = document.createElement('a');
-            link.href = linkData.href;
+            link.href = linkData.link;
             link.classList.add('border-b', 'border-customBlue/60', 'pb-3', 'px-3');
             link.textContent = linkData.text;
             mobileNav.appendChild(link);

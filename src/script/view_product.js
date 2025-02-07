@@ -1,4 +1,4 @@
-import  { header, footer  }  from "/src/components/layout.js";
+import  { header, footer, isLocal  }  from "/src/components/layout.js";
 import { allProd } from "/src/services/product_data.js";
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -95,6 +95,6 @@ import { allProd } from "/src/services/product_data.js";
                
             }
         } else {
-            window.location.href = "/coastal-creations";
+            window.location.href = isLocal? "/src/pages/coastal_creations.html": "/coastal-creations";
         }
     });

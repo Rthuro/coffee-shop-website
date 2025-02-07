@@ -1,4 +1,5 @@
-    const form = document.querySelector('form');
+   import { isLocal } from "/src/components/layout.js";
+   const form = document.querySelector('form');
     const email = document.getElementById('email');
     const showPassword = document.getElementById('showPassword');
     const password = document.getElementById('password');
@@ -6,7 +7,9 @@
     const confirmPassword = document.getElementById('confirmPassword');
     const confirmPassErr = document.getElementById('confirmPassErr');
     const signUpErr = document.getElementById('signUpErr');
+    const loginBtn = document.getElementById('loginBtn');
 
+    loginBtn.href = isLocal ? "/src/pages/login.html" : "/login";
     showPassword.addEventListener('change', ()=>{
         password.type = showPassword.checked ? 'text' : 'password';
     });
@@ -47,7 +50,7 @@
                             users.push(user);
 
                             localStorage.setItem('users', JSON.stringify(users));
-                            window.location.href = '/login';
+                            window.location.href =isLocal ? '/src/pages/login.html' : '/login';
                     }
                 }else{
                         const user ={ email: email.value, password:password.value, };
@@ -57,7 +60,7 @@
                             users.push(user);
 
                             localStorage.setItem('users', JSON.stringify(users));
-                            window.location.href = '/login';
+                            window.location.href =isLocal ? '/src/pages/login.html' : '/login';
                         }
                 
                 
