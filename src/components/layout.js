@@ -3,8 +3,8 @@ export function header(page){
     const header = document.querySelector('header');
 
     const hamburger = document.createElement('button');
-     hamburger.id = 'hamburgerMenu' ;
-    hamburger.classList.add('md:hidden','xs:flex','w-[70px]','peer-checked:hamburger');
+    hamburger.id = 'hamburgerMenu' ;
+    hamburger.classList.add('md:hidden','xs:flex','w-[70px]');
     const hamburgerIcon = document.createElement('i');
     hamburgerIcon.setAttribute('data-lucide','menu');
     hamburgerIcon.setAttribute('stroke','#284961');
@@ -18,10 +18,28 @@ export function header(page){
     header.appendChild(img)
 
     const nav = document.createElement('nav');
+    nav.id = "mainNav";
     nav.classList.add('flex', 'justify-center', 'flex-1', 'gap-8', 'xs:hidden','md:flex');
-    page == 'Ocean Breeze'? nav.innerHTML += `<a href="/index.html" class='font underline'>Ocean Breeze</a>`: nav.innerHTML += `<a href="/index.html">Ocean Breeze</a>`;
 
-    page == 'Coastal Creations'? nav.innerHTML += `<a href="/src/pages/coastal_creations.html" class='underline'>Coastal Creations</a>`: nav.innerHTML += `<a href="/src/pages/coastal_creations.html">Coastal Creations</a>`;
+    const navLinks = [
+        { 
+            link:"/index.html",
+            text: "Ocean Breeze"
+        },
+        {
+            link:"/src/pages/coastal_creations.html",
+            text: "Coastal Creations"
+        }
+
+    ];
+
+    navLinks.forEach(linkData =>{
+        const a = document.createElement('a');
+        a.innerText = linkData.text;
+        a.href = linkData.link;
+        page == linkData.text? a.classList.add('underline'):a.classList.remove('underline') ;
+        nav.appendChild(a);
+    });
 
     header.appendChild(nav);
 
@@ -60,37 +78,61 @@ export function header(page){
    
     header.appendChild(div);
 
-    header.innerHTML += `
-    <nav id='mobileNav' class="hidden fixed flex-col gap-3 py-6 top-[100px] border-t border-customBlue left-0  bottom-0  bg-customCream z-50 origin-left duration-200 right-0 animate-appear">
-        <a href='/index.html' class='border-b border-customBlue/60 pb-3 px-3'>Ocean Breeze</a>
-        <a href='/src/pages/coastal_creations.html' class='border-b border-customBlue/60 pb-3 px-3'>Coastal Creations</a>
-    </nav>`;
+    const mobileNav = document.createElement('nav');
+    mobileNav.id = 'mobileNav';
+    mobileNav.classList.add('hidden', 'fixed', 'flex-col', 'gap-3', 'py-6', 'top-[100px]', 'border-t', 'border-customBlue', 'left-0', 'bottom-0', 'bg-customCream', 'z-50', 'origin-left', 'duration-200', 'right-0', 'animate-appear');
 
-    const mobileNav = document.getElementById('mobileNav');
+    const mobileHeaderLinks = [
+        {
+            link: "/index.html",
+            text: "Ocean Breeze"
+        },
+        {
+            link: "/src/pages/coastal_creations.html",
+            text: "Coastal Creations"
+        }];
+    
+        mobileHeaderLinks.forEach(linkData => {
+            const link = document.createElement('a');
+            link.href = linkData.href;
+            link.classList.add('border-b', 'border-customBlue/60', 'pb-3', 'px-3');
+            link.textContent = linkData.text;
+            mobileNav.appendChild(link);
+        });
+
+    header.appendChild(mobileNav);
+
+    const showMobileNav = document.getElementById('mobileNav');
     const hamburgerBtn = document.getElementById('hamburgerMenu');
     hamburgerBtn.addEventListener('click',()=>{
         if(hamburgerBtn.style.display = 'flex'){
-            mobileNav.style.display = mobileNav.style.display == 'flex'? 'none':'flex';
+            showMobileNav.style.display = showMobileNav.style.display == 'flex'? 'none':'flex';
         }
     });
 
 }
 
-export function footer(){
+export function footer() {
     const footer = document.querySelector('footer');
-    const footerLogoImg = document.createElement('img');
-    footerLogoImg.classList.add('sm:w-28','xs:w-20');
-    footerLogoImg.src = '/src/assets/logo/logo.png';
-    
-    footer.appendChild(footerLogoImg);
-    
-    footer.innerHTML += `
-                <div class="flex flex-col gap-1 sm:text-[12px] xs:text-[10px]">
-                    <p class="sm:text-lg xs:text-sm  font-medium">Address</p>
-                    <p>Azure Wave Café <br> 123 Seaside Boulevard <br> Coastal Town, CT 56789</p>
-                </div>
-                <div class="flex flex-col gap-1 sm:text-[12px] xs:text-[10px]">
-                    <p class="sm:text-lg xs:text-sm font-medium">Contact</p>
-                    <p >+639234567891 <br> azureWavesCafe@gmail.com</p>
-                </div>`;
+
+    const img = document.createElement('img');
+    img.src = '/src/assets/logo/logo.png';
+    img.classList.add('sm:w-28', 'xs:w-20');
+    footer.appendChild(img);
+
+    const addressDiv = document.createElement('div');
+    addressDiv.classList.add('flex', 'flex-col', 'gap-1', 'sm:text-[12px]', 'xs:text-[10px]');
+    addressDiv.innerHTML = `
+        <p class="sm:text-lg xs:text-sm font-medium">Address</p>
+        <p>Azure Wave Café <br> 123 Seaside Boulevard <br> Coastal Town, CT 56789</p>
+    `;
+    footer.appendChild(addressDiv);
+
+    const contactDiv = document.createElement('div');
+    contactDiv.classList.add('flex', 'flex-col', 'gap-1', 'sm:text-[12px]', 'xs:text-[10px]');
+    contactDiv.innerHTML = `
+        <p class="sm:text-lg xs:text-sm font-medium">Contact</p>
+        <p>+639234567891 <br> azureWavesCafe@gmail.com</p>
+    `;
+    footer.appendChild(contactDiv);
 }
