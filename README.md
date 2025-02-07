@@ -13,7 +13,7 @@ Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings 
 ✔ **Responsive Design**: Optimized for mobile and desktop devices.
 
 ### 🛒 Updating Quantity in the Cart
-- Click on the quantity value instead of trying to erase it, as erasing will set the value to 0, which automatically resets the quantity to 1.
+- Select on the quantity value instead of trying to erase it, as erasing will set the value to 0, which automatically resets the quantity to 1.
 
 ## 🛠️ Tech Stack
 - Frontend: HTML, Tailwind CSS, JavaScript
