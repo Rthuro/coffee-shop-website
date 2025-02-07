@@ -1,7 +1,7 @@
 import { header, footer } from "/src/components/layout.js";
 import { allProd } from "/src/services/product_data.js";
 
-
+// For table
 const tbody = document.querySelector('table tbody');
 const total = document.getElementById('total');
 // For checkout
@@ -31,15 +31,18 @@ function checkCart(cart){
     let totalAmt = 0;
     if(cart && cart.length > 0){
         if(emptyCartMsg){
+            // Used classList.add('hidden') instead of toggling with 'flex'  
+            // to hide the empty cart message while keeping layout intact.
             emptyCartMsg.classList.add('hidden');
         }
 
         cart.forEach(items => {
+           // Find the product in allProd using the productId from the cart
            const prod = allProd.find(prod => items.productId == prod.id);
 
            if(prod){
                 createCartItem(prod, items);
-                totalAmt += items.productPrice * items.quantity;
+                totalAmt += items.productPrice * items.quantity; // Calculate total amount
            }
         });
 
@@ -49,12 +52,15 @@ function checkCart(cart){
         emptyCartMsg.classList.remove('hidden');
 
     }
+    // Placing `lucide.createIcons()` inside this function ensures that icons are dynamically updated
+    // when new cart items are added. If placed outside, the icons wouldn't be updated in real-time.
     lucide.createIcons();
 }
 
 function updateAmount(quantity, price, displayAmount, prodId, prodSize){
     let updatedAmount = 0;
     displayAmount.innerHTML = `PHP ${quantity * price}`;
+
     const cart = JSON.parse(localStorage.getItem('userCart'));
     const updateCartItem = cart.find( item => item.productId == prodId && item.productSize == prodSize && item.userEmail == localStorage.getItem('currentUserEmail'));
     updateCartItem.quantity = quantity;
@@ -74,7 +80,7 @@ function deleteProduct(prodId, name, size,quantity){
     const yesDelBtn = document.querySelector('#delModalContainer #yesDelBtn');
     delModalContainer.classList.replace('hidden', 'flex');
 
-    delMsg.innerText = `Do you want to remove [ ${name + ' ' + size + ' ' + quantity}x ] ?`;
+    delMsg.innerText = `Do you want to remove ${name + ' ' + size + ' ' + quantity}x?`;
 
     noDelBtn.addEventListener('click', ()=>{
       delModalContainer.classList.replace('flex', 'hidden');
@@ -82,6 +88,8 @@ function deleteProduct(prodId, name, size,quantity){
 
     yesDelBtn.addEventListener('click',()=>{
         const cart = JSON.parse(localStorage.getItem('userCart'));
+
+        // This excludes the deleted item
         const excludeDelItem =  cart.filter(item => !(item.productId == prodId && item.productSize == size && item.userEmail == localStorage.getItem('currentUserEmail'))  ); 
 
         localStorage.setItem('userCart', JSON.stringify(excludeDelItem));
@@ -94,8 +102,8 @@ function deleteProduct(prodId, name, size,quantity){
 function createCartItem(cartProdInfo, prod){
     
     const tr = document.createElement('tr');
-    
 
+    // Display the product img, name and size
     const product = document.createElement('td');
     const productInfoContainer = document.createElement('div');
     productInfoContainer.classList.add('flex','items-center', 'justify-start');
@@ -112,6 +120,7 @@ function createCartItem(cartProdInfo, prod){
     product.appendChild(productInfoContainer);
     tr.appendChild(product);
 
+    // Display the quantity in the input field, add button and minus button
     const userProdQuant = document.createElement('td');
     const div = document.createElement('div');
     div.classList.add('flex', 'items-center', 'justify-center');
@@ -145,12 +154,14 @@ function createCartItem(cartProdInfo, prod){
             plusButton.appendChild(plusIcon);
         div.appendChild(plusButton);
 
+    // Display the product price
     const userProdPrice = document.createElement('td');
     userProdPrice.classList.add('text-center');
     const amount = document.createElement('p');
     amount.innerHTML = `PHP ${prod.productPrice * prod.quantity}`;
     userProdPrice.appendChild(amount);
 
+    // Display the delete action button
     const deleteTd = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add( 'flex', 'mx-auto');
@@ -169,6 +180,7 @@ function createCartItem(cartProdInfo, prod){
 
 minusButton.addEventListener('click', ()=>{   
             if(quantityInput.value <= 1){
+               // Ensure the quantity does not go below 1
                 quantityInput.value = 1;
             
             } else {
@@ -179,6 +191,7 @@ minusButton.addEventListener('click', ()=>{
 
 quantityInput.addEventListener('input', () => {
             if (quantityInput.value <= 0) {
+            // Set the quantity to 1 if it is below or equal to 0
                 quantityInput.value = 1; 
             }
             updateAmount(quantityInput.value, prod.productPrice, amount, prod.productId,prod.productSize);
@@ -198,6 +211,7 @@ deleteBtn.addEventListener('click', ()=>{
     
 }
 
+// Display the product items for check out
 function displayCheckOutItems(cartProdInfo, productName){
     const li = document.createElement('li');
     li.classList.add('py-1', 'flex','justify-between','items-center');
@@ -206,9 +220,9 @@ function displayCheckOutItems(cartProdInfo, productName){
     p.innerText = `PHP ${cartProdInfo.productPrice}`;
     li.appendChild(p);
     checkoutDisplayItems.appendChild(li);
-    
 }
 
+// Create receipt
 function createReceipt(cartProdInfo,productName){
     const li = document.createElement('li');
     li.classList.add('py-1', 'flex','justify-between','items-center');
@@ -238,14 +252,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         footer();
         
         const cart = JSON.parse(localStorage.getItem('userCart')) || [];
+        // Get all user cart items in cart
         checkCart(cart.filter( items => items.userEmail == localStorage.getItem('currentUserEmail')));
 
-        okayBtn.addEventListener('click', ()=>{
-            emptyCartCheckout.classList.replace('flex','hidden');
-        });
-
         checkoutBtn.addEventListener('click', ()=>{
+        // Check if there are items in the cart (retrieved from local storage)
             if(cart && cart.length <= 0){
+                    // Display empty cart message if the cart with userEmail not found
                     emptyCartCheckout.classList.replace('hidden','flex');
             }else{
                     checkoutModal.classList.replace('hidden','flex');
@@ -260,15 +273,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 }
         });
 
+        // Okay button in the empty cart checkout message container (#emptyCartCheckout)
+        okayBtn.addEventListener('click', ()=>{
+            emptyCartCheckout.classList.replace('flex','hidden');
+        });
+
         checkOutNoBtn.addEventListener('click', ()=>{
             checkoutModal.classList.replace('flex','hidden');
+            // Clear the checkout modal content to refresh it for future updates
             clearList(checkoutModal);
         }); 
 
+        
         checkOutYesBtn.addEventListener('click', ()=>{
             const date = new Date();
+
+            // Hide the checkout modal and the receipt modal
             checkoutModal.classList.replace('flex','hidden');
             receiptModal.classList.replace('hidden','flex');
+
             const getUpdatedCart = JSON.parse(localStorage.getItem('userCart'));
             getUpdatedCart.forEach(items =>{
                     const prodInfo = allProd.find(product => items.productId == product.id);
@@ -278,16 +301,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
             receiptDate.innerText = date.toDateString(); 
             receiptTime.innerText = date.toLocaleTimeString(); 
             receiptAmt.innerText = checkOutAmount.innerText;
+
+            // Clear the checkout modal content to refresh it for future updates
             clearList(checkoutModal);
         });
        
         closeReceiptModal.addEventListener('click',()=>{
             receiptModal.classList.replace('flex','hidden');
+            // Clear the receipt modal content to refresh it for future updates
             clearList(receiptModal);
         });
 
+        // Download receipt using html2canvas
         dlReceipt.addEventListener('click', ()=>{
-        
+        // Get the receipt container (#receipt cart.html line 70) inside the receipt modal
             html2canvas(receipt).then(function(canvas){
                 const link = document.createElement('a');
                 link.href = canvas.toDataURL('image/png');
@@ -295,7 +322,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 link.click();
             });
 
+            // Hide receipt modal 
+            // Clear the receipt modal content to refresh it for future updates
             receiptModal.classList.replace('flex','hidden');
+            clearList(receiptModal);
         });
     }
 });
