@@ -27,7 +27,7 @@ export function header(page){
             text: "Ocean Breeze"
         },
         {
-            link:"/coastal%20creations",
+            link:"/coastal-creations",
             text: "Coastal Creations"
         }
 
@@ -84,11 +84,11 @@ export function header(page){
 
     const mobileHeaderLinks = [
         {
-            link: "/index",
+            link: "/ocean-breeze",
             text: "Ocean Breeze"
         },
         {
-            link: "/coastal%20creations",
+            link: "/coastal-creations",
             text: "Coastal Creations"
         }];
     
