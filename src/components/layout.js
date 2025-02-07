@@ -23,11 +23,11 @@ export function header(page){
 
     const navLinks = [
         { 
-            link:"/index.html",
+            link:"/index",
             text: "Ocean Breeze"
         },
         {
-            link:"/src/pages/coastal_creations.html",
+            link:"/coastal%20creations",
             text: "Coastal Creations"
         }
 
@@ -54,20 +54,20 @@ export function header(page){
         const a = document.createElement('a');
         a.classList.add('cursor-pointer','bg-customBlue', 'w-fit', 'text-center',  'sm:py-2','xs:py-1', 'sm:px-4','xs:px-2','rounded-sm','text-sm','self-end');
         a.innerHTML = 'Login';
-        a.href = "/src/pages/login.html";
+        a.href = "/login";
     
         div.appendChild(a);
     }else{
         div.classList.add('gap-2');
         const a1 = document.createElement('a');
-        a1.href = "/src/pages/cart.html";
+        a1.href = "/cart";
             const i1 = document.createElement('i');
             i1.classList.add('size-5');
             i1.setAttribute('data-lucide', 'shopping-bag');
             a1.appendChild(i1);
         div.appendChild(a1);
         const a2 = document.createElement('a');
-        a2.href = "/src/pages/account.html";
+        a2.href = "/account";
             const i2 = document.createElement('i');
             i2.classList.add('size-5');
             i2.setAttribute('data-lucide', 'user-round');
@@ -84,11 +84,11 @@ export function header(page){
 
     const mobileHeaderLinks = [
         {
-            link: "/index.html",
+            link: "/index",
             text: "Ocean Breeze"
         },
         {
-            link: "/src/pages/coastal_creations.html",
+            link: "/coastal%20creations",
             text: "Coastal Creations"
         }];
     

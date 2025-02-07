@@ -94,7 +94,7 @@ function deleteProduct(prodId, name, size,quantity){
 
         localStorage.setItem('userCart', JSON.stringify(excludeDelItem));
         delModalContainer.classList.replace('flex', 'hidden');
-        window.location.href = "/src/pages/cart.html";
+        window.location.href = "/cart";
     });
 
 }
@@ -114,7 +114,7 @@ function createCartItem(cartProdInfo, prod){
     const productName = document.createElement('a');
     productName.classList.add('text-wrap','word-wrap');
     productName.innerText = `${cartProdInfo.name} (${prod.productSize})`;
-    productName.href = `view_product.html?id=${prod.productId}`;
+    productName.href = `/view%20product?id=${prod.productId}`;
     productInfoContainer.appendChild(productName);
 
     product.appendChild(productInfoContainer);
@@ -246,7 +246,7 @@ function clearList(parentElement){
 document.addEventListener('DOMContentLoaded', ()=>{
     const currentUser = localStorage.getItem('currentUserEmail') ;
     if(currentUser == "null" || currentUser == null || !currentUser){
-    window.location.href = "/index.html";
+    window.location.href = "/ocean%20breeze";
     } else {
         header('Cart');
         footer();

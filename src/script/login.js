@@ -27,7 +27,7 @@
                 if(checkUser){
                     localStorage.setItem('currentUserEmail',email.value);
                     localStorage.setItem('currentUserPass',password.value);
-                    window.location.href = '/index.html';
+                    window.location.href = '/ocean%20breeze';
                 } else if(incorrectPass){
                     confirmLogin.innerText = 'Wrong password.';
                 }else{

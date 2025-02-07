@@ -82,11 +82,11 @@ import { allProd } from "/src/services/product_data.js";
                 // Update the cart item quantity if product with the same size exist
                       existingProd.quantity =  parseInt(existingProd.quantity) + parseInt(quantity.value);
                       localStorage.setItem('userCart', JSON.stringify(cart));
-                      window.location.href = '/src/pages/cart.html';
+                      window.location.href = '/cart';
                 } else {
                     cart.push(userCart);
                     localStorage.setItem('userCart', JSON.stringify(cart));
-                    window.location.href = '/src/pages/cart.html';
+                    window.location.href = '/cart';
                 } 
 
                 okayBtn.addEventListener('click', ()=>{
@@ -95,6 +95,6 @@ import { allProd } from "/src/services/product_data.js";
                
             }
         } else {
-            window.location.href = "/src/pages/coastal_creations.html";
+            window.location.href = "/coastal%20creations";
         }
     });

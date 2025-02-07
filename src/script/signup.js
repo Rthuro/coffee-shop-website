@@ -47,7 +47,7 @@
                             users.push(user);
 
                             localStorage.setItem('users', JSON.stringify(users));
-                            window.location.href = './login.html';
+                            window.location.href = '/login';
                     }
                 }else{
                         const user ={ email: email.value, password:password.value, };
@@ -57,7 +57,7 @@
                             users.push(user);
 
                             localStorage.setItem('users', JSON.stringify(users));
-                            window.location.href = './login.html';
+                            window.location.href = '/login';
                         }
                 
                 
