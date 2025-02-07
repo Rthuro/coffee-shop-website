@@ -1,5 +1,5 @@
 import  { header, footer  }  from "/src/components/layout.js";
-    import { allProd } from "/src/services/product_data.js";
+import { allProd } from "/src/services/product_data.js";
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const productId = Number(urlParams.get('id'));
@@ -9,8 +9,8 @@ import  { header, footer  }  from "/src/components/layout.js";
     lucide.createIcons();
 
     document.addEventListener('DOMContentLoaded', ()=>{ 
-        
-        if(productId){
+        const findProd = allProd.find( prod => prod.id == productId );   
+        if(productId && findProd){
             const form = document.querySelector('form');
             const productImg = document.getElementById('productImg');
             const productName = document.getElementById('productName');
@@ -20,7 +20,7 @@ import  { header, footer  }  from "/src/components/layout.js";
             const quantity = document.getElementById('quantity');
             const plusBtn = document.getElementById('plusBtn');
             const sizeDropDown = document.getElementById('size');
-            // if the place order is clicked without an current user or account
+            // if the place order is clicked without a current user or account
             const noAccount = document.getElementById('noAccount');
             const okayBtn = document.querySelector('#noAccount #okayBtn');
             
@@ -71,6 +71,7 @@ import  { header, footer  }  from "/src/components/layout.js";
 
                 const cart = JSON.parse(localStorage.getItem('userCart')) || [];
 
+                // check if product with the same size exist in the user cart
                 const existingProd = cart.find(cartItem =>
                     cartItem.userEmail === email && Number(cartItem.productId) ===productId && cartItem.productSize === sizeDropDown.value
                 );
@@ -78,6 +79,7 @@ import  { header, footer  }  from "/src/components/layout.js";
                 if(!email || email == null || email == 'null'){
                     noAccount.classList.replace('hidden','flex');
                 }else if(existingProd){
+                // Update the cart item quantity if product with the same size exist
                       existingProd.quantity =  parseInt(existingProd.quantity) + parseInt(quantity.value);
                       localStorage.setItem('userCart', JSON.stringify(cart));
                       window.location.href = '/src/pages/cart.html';
@@ -89,11 +91,10 @@ import  { header, footer  }  from "/src/components/layout.js";
 
                 okayBtn.addEventListener('click', ()=>{
                     noAccount.classList.replace('flex','hidden');
-
                 });
                
             }
         } else {
-            window.location.href = "/index.html";
+            window.location.href = "/src/pages/coastal_creations.html";
         }
     });
