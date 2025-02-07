@@ -5,17 +5,19 @@ header('Coastal Creations');
 footer();
 lucide.createIcons();
 const allProdContainer = document.getElementById('allProdContainer');
-const main = document.querySelector('main');
 const noResultMsg = document.querySelector('main p');
 const search = document.getElementById('search');
 const form = document.querySelector('form');
 let result = 0;
+
 function prod(search){
     allProdContainer.innerHTML = '';
     noResultMsg.innerHTML = '';
     result = 0;
 
     allProd.forEach(prod => {
+    // Display all products if no search term is entered, 
+    // or filter products that match the search query (case-insensitive).
         if (search === '' || prod.name.toLowerCase().includes(search.toLowerCase())
           ){
             const div = document.createElement('div');
