@@ -3,7 +3,7 @@ Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings 
 
 ## 🌊 Features
 ✔ **Home Page - Ocean Breeze**: A beautiful landing page with an introduction to Azure Waves Café.\
-✔ **Menu Page - Coastal Creations**: Browse a curated selection of coffees and pastries.\
+✔ **Menu Page - Coastal Creations**: Browse and search a curated selection of coffees and pastries.\
 ✔ **Place Order**: Allows users to select items from the menu and add them to their cart, initiating the ordering process.\
 ✔ **Cart System**: Add, remove, and update your favorite orders.\
 ✔ **Checkout Order**: After reviewing the cart, users can proceed to the checkout where they can finalize their orders.\
