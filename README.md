@@ -18,7 +18,7 @@ Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings 
 ## 🛠️ Tech Stack
 - Frontend: HTML, Tailwind CSS, JavaScript
 - Deployment: Netlify
-- Icons & UI Components: Lucide Icons
+- Icons: Lucide Icons
 
 ## 🚀 Getting Started
 1. Install Dependencies
