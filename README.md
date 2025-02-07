@@ -1,5 +1,5 @@
 # ☕ Azure Waves Café
-Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings the warmth of handcrafted brews and coastal vibes to your screen. This project is a responsive and interactive café website built with HTML, CSS, JavaScript, and can be deployed on Netlify
+Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings coastal vibes to your screen. This project is a responsive and interactive café website built with HTML, CSS, JavaScript, and can be deployed on Netlify
 
 ## 🌊 Features
 ✔ **Home Page - Ocean Breeze**: A beautiful landing page with an introduction to Azure Waves Café.\
