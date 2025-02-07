@@ -297,6 +297,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                     const prodInfo = allProd.find(product => items.productId == product.id);
                     createReceipt(items, prodInfo.name);
                 });
+            // Generate a random number between 1 and 100. Adjust the range based on your logic.
             receiptOrderNum.innerText = `Order #${Math.floor(Math.random()*100)}`;
             receiptDate.innerText = date.toDateString(); 
             receiptTime.innerText = date.toLocaleTimeString(); 
