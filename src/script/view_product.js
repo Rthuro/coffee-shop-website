@@ -95,6 +95,6 @@ import { allProd } from "/src/services/product_data.js";
                
             }
         } else {
-            window.location.href = "/coastal%20creations";
+            window.location.href = "/coastal-creations";
         }
     });

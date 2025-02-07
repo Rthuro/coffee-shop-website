@@ -41,7 +41,7 @@ function prod(search){
             allProdContainer.appendChild(div);
 
             div.addEventListener('click', ()=>{
-            window.location.href = `/view%20product?id=${prod.id}`
+            window.location.href = `/view-product?id=${prod.id}`
             });
 
             result++;

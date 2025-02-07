@@ -114,7 +114,7 @@ function createCartItem(cartProdInfo, prod){
     const productName = document.createElement('a');
     productName.classList.add('text-wrap','word-wrap');
     productName.innerText = `${cartProdInfo.name} (${prod.productSize})`;
-    productName.href = `/view%20product?id=${prod.productId}`;
+    productName.href = `/view-product?id=${prod.productId}`;
     productInfoContainer.appendChild(productName);
 
     product.appendChild(productInfoContainer);
@@ -246,7 +246,7 @@ function clearList(parentElement){
 document.addEventListener('DOMContentLoaded', ()=>{
     const currentUser = localStorage.getItem('currentUserEmail') ;
     if(currentUser == "null" || currentUser == null || !currentUser){
-    window.location.href = "/ocean%20breeze";
+    window.location.href = "/ocean-breeze";
     } else {
         header('Cart');
         footer();
