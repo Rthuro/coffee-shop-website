@@ -10,7 +10,7 @@ Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings 
 ✔ **Generate Receipt**: Once the order is completed, the receipt is generated using html2canvas, allowing the user to download a visual representation of the receipt for their order.\
 ✔ **User Authentication**: Sign up & log in to save your orders.\
 ✔ **Account Management**: Create and delete account.\
-✔ **Responsive Design**: Optimized for mobile and desktop devices.\
+✔ **Responsive Design**: Optimized for mobile and desktop devices.
 
 ### 🛒 Updating Quantity in the Cart
 - Click on the quantity value instead of trying to erase it, as erasing will set the value to 0, which automatically resets the quantity to 1.
