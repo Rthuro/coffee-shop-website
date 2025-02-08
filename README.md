@@ -1,5 +1,5 @@
 # ☕ Azure Waves Café
-Welcome to **Azure Waves Café** – a seaside-inspired coffee shop that brings coastal vibes to your screen. This project is a responsive and interactive café website built with HTML, CSS, JavaScript, and can be deployed on Netlify
+Welcome to **Azura Waves Café** – a self-ordering kiosk-inspired coffee shop website designed for a seamless digital ordering experience. Inspired by McDonald's kiosk machines, this project is a frontend-only solution built with HTML, Tailwind CSS, and JavaScript. It offers an interactive and responsive UI, allowing customers to browse the menu and place orders, with payments handled at the counter. This project can be deployed on Netlify for easy access.
 
 ## 🌊 Features
 ✔ **Home Page - Ocean Breeze**: A beautiful landing page with an introduction to Azure Waves Café.\
