@@ -1,11 +1,11 @@
 # ☕ Azure Waves Café
-Welcome to **Azura Waves Café** – a seaside-inspired coffee shop ordering system inspired by McDonald's kiosk machines. This project is a fully responsive and interactive frontend application built with HTML, CSS, and JavaScript. Users can browse the menu, add items to their cart, and review their orders, with all user and cart data stored in local storage. Since this is a frontend-only project with no backend, payments are made at the counter. This system can be deployed on Netlify for easy access.
+Welcome to **Azura Waves Café** – a seaside-inspired coffee shop ordering system inspired by McDonald's kiosk machines. This project is a fully responsive and interactive frontend application built with HTML, Tailwind CSS, and JavaScript. Users can browse the menu, add items to their cart, and review their orders, with all user and cart data stored in local storage. Since this is a frontend-only project with no backend, payments are made at the counter. This system can be deployed on Netlify for easy access.
 
 ## 🌊 Features
 ✔ **Home Page - Ocean Breeze**: A beautiful landing page with an introduction to Azure Waves Café.\
 ✔ **Menu Page - Coastal Creations**: Browse and search a curated selection of coffees and pastries.\
 ✔ **Place Order**: Allows users to select items from the menu and add them to their cart, initiating the ordering process.\
-✔ **Cart System**: Add, remove, and update your favorite orders.\
+✔ **Cart System**: Add, remove, and update your orders.\
 ✔ **Checkout Order**: After reviewing the cart, users can proceed to the checkout where they can finalize their orders.\
 ✔ **Generate Receipt**: Once the order is completed, the receipt is generated using html2canvas, allowing the user to download a visual representation of the receipt for their order.\
 ✔ **User Authentication**: Sign up & log in to save your orders.\
