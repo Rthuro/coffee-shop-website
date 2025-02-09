@@ -217,7 +217,7 @@ function displayCheckOutItems(cartProdInfo, productName){
     li.classList.add('py-1', 'flex','justify-between','items-center');
     li.innerText = `${cartProdInfo.quantity}X  ${productName} (${cartProdInfo.productSize}) `;
     const p = document.createElement('p');
-    p.innerText = `PHP ${cartProdInfo.productPrice}`;
+    p.innerText = `PHP ${cartProdInfo.productPrice * cartProdInfo.quantity}`;
     li.appendChild(p);
     checkoutDisplayItems.appendChild(li);
 }
@@ -228,7 +228,7 @@ function createReceipt(cartProdInfo,productName){
     li.classList.add('py-1', 'flex','justify-between','items-center');
     li.innerText = `${cartProdInfo.quantity}X  ${productName} (${cartProdInfo.productSize}) `;
     const p = document.createElement('p');
-    p.innerText = `PHP ${cartProdInfo.productPrice}`;
+    p.innerText = `PHP ${cartProdInfo.productPrice * cartProdInfo.quantity}`;
     li.appendChild(p);
     receiptItems.appendChild(li);
 }
