@@ -82,11 +82,11 @@ import { allProd } from "/src/services/product_data.js";
                 // Update the cart item quantity if product with the same size exist
                       existingProd.quantity =  parseInt(existingProd.quantity) + parseInt(quantity.value);
                       localStorage.setItem('userCart', JSON.stringify(cart));
-                      window.location.href = '/cart';
+                      window.location.href = isLocal ? '/src/pages/cart.html':'/cart';
                 } else {
                     cart.push(userCart);
                     localStorage.setItem('userCart', JSON.stringify(cart));
-                    window.location.href = '/cart';
+                    window.location.href = isLocal ? '/src/pages/cart.html':'/cart';
                 } 
 
                 okayBtn.addEventListener('click', ()=>{
