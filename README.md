@@ -43,7 +43,3 @@ To deploy your own version:
 - 🖼️ **Product Images**: All product images displayed in this project are sourced and created using Canva's design tools.
 - ✨ **Visual Aesthetics**: The branding, typography, and color scheme were carefully selected to maintain a visually appealing design.
 
-## 📧 Contact
-For any questions or collaborations, reach me out via:\
-📩 **Email**: oribelloruthiemy@gmail.com\
-🌐 **Tiktok**: rthuro.ruth
